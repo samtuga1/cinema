@@ -68,11 +68,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Movies',
-                    style: constants.TextStyles.textstyle.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+                    style: constants.TextStyles.text1
                   ),
                 ],
               ),
