@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black12,
@@ -71,7 +71,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            
           ],
         ),
       )),
