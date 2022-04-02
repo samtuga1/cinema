@@ -79,18 +79,18 @@ class HomeScreen extends StatelessWidget {
             ),
             Expanded(
               child: Swiper(
-                  itemBuilder: (BuildContext context, int i) {
-                    return MovieContainer(
-                      imageUrl: movieData.movies[i].imageUrl,
-                      rate: movieData.movies[i].rate,
-                      title: movieData.movies[i].title,
-                      duration: movieData.movies[i].duration,
-                    );
-                  },
-                  itemCount: movieData.movies.length,
-                  //viewportFraction: 0.8,
-                  //scale: 0.9,
-                  ),
+                itemBuilder: (BuildContext context, int i) {
+                  return MovieContainer(
+                    imageUrl: movieData.movies[i].imageUrl,
+                    rate: movieData.movies[i].rate,
+                    title: movieData.movies[i].title,
+                    duration: movieData.movies[i].duration,
+                  );
+                },
+                itemCount: movieData.movies.length,
+                viewportFraction: 0.375,
+                scale: 0.85,
+              ),
             )
           ],
         ),
