@@ -1,12 +1,15 @@
 import 'package:card_swiper/card_swiper.dart';
 import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/movie.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final movieData = Provider.of<Movies>(context);
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -74,17 +77,16 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Swiper(
-  itemBuilder: (
-    BuildContext context, int i) {
-    return Image.network(
-      "https://via.placeholder.com/288x188",
-      fit: BoxFit.fill,
-    );
-  },
-  itemCount: 10,
-  viewportFraction: 0.8,
-  scale: 0.9,
-)
+              itemBuilder: (BuildContext context, int i) {
+                return Image.network(
+                  "https://via.placeholder.com/288x188",
+                  fit: BoxFit.fill,
+                );
+              },
+              itemCount: 10,
+              viewportFraction: 0.8,
+              scale: 0.9,
+            )
           ],
         ),
       )),
