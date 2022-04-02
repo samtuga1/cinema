@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -64,6 +63,11 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Movies',
+                    style: constants.TextStyles.textstyle.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
                   ),
                 ],
               ),
