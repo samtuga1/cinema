@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart' as constants;
 
 class MovieContainer extends StatelessWidget {
   final String imageUrl;
@@ -15,7 +16,7 @@ class MovieContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image.network(
@@ -25,14 +26,24 @@ class MovieContainer extends StatelessWidget {
           width: 170,
         ),
       ),
-      Text(title),
+      Container(
+        margin: const EdgeInsets.symmetric(vertical: 7),
+        child: Text(title, style: constants.TextStyles.text2,),
+      ),
       Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('⭐ $rate'),
-          const SizedBox(
-            width: 10,
+          Text(
+            '⭐ $rate',
+            style: constants.TextStyles.text2,
           ),
-          Text(duration),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            duration,
+            style: constants.TextStyles.text2,
+          ),
         ],
       )
     ]);
