@@ -1,3 +1,6 @@
+import 'package:cinema/providers/movie.dart';
+import 'package:provider/provider.dart';
+
 import './screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +14,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Cinema',
-      theme: ThemeData.dark(),
-      home: const HomeScreen(),
+    return ChangeNotifierProvider(
+      create: (ctx) => Movies(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Cinema',
+        theme: ThemeData.dark(),
+        home: const HomeScreen(),
+      ),
     );
   }
 }
