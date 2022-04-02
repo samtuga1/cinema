@@ -3,6 +3,7 @@ import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie.dart';
+import '../widgets/movie_container.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -76,16 +77,20 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Swiper(
-              itemBuilder: (BuildContext context, int i) {
-                return Image.network(
-                  "https://via.placeholder.com/288x188",
-                  fit: BoxFit.fill,
-                );
-              },
-              itemCount: 10,
-              viewportFraction: 0.8,
-              scale: 0.9,
+            Expanded(
+              child: Swiper(
+                  itemBuilder: (BuildContext context, int i) {
+                    return MovieContainer(
+                      imageUrl: movieData.movies[i].imageUrl,
+                      rate: movieData.movies[i].rate,
+                      title: movieData.movies[i].title,
+                      duration: movieData.movies[i].duration,
+                    );
+                  },
+                  itemCount: movieData.movies.length,
+                  //viewportFraction: 0.8,
+                  //scale: 0.9,
+                  ),
             )
           ],
         ),
