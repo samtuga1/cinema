@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,18 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            
+            Swiper(
+  itemBuilder: (
+    BuildContext context, int i) {
+    return Image.network(
+      "https://via.placeholder.com/288x188",
+      fit: BoxFit.fill,
+    );
+  },
+  itemCount: 10,
+  viewportFraction: 0.8,
+  scale: 0.9,
+)
           ],
         ),
       )),
