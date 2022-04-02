@@ -5,27 +5,25 @@ class MovieContainer extends StatelessWidget {
   final int rate;
   final String title;
   final String duration;
-  const MovieContainer(
-      {Key? key,
-      required this.imageUrl,
-      required this.rate,
-      required this.title,
-      required this.duration,
-      })
-      : super(key: key);
+  const MovieContainer({
+    Key? key,
+    required this.imageUrl,
+    required this.rate,
+    required this.title,
+    required this.duration,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-      Container(
-        height: 60,
-        width: 38,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13),
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          height: 220,
+          width: 170,
         ),
-        child: Image.network(imageUrl, fit: BoxFit.cover),
       ),
       Text(title),
       Row(
@@ -35,7 +33,7 @@ class MovieContainer extends StatelessWidget {
             width: 10,
           ),
           Text(duration),
-          ],
+        ],
       )
     ]);
   }
