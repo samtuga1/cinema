@@ -10,12 +10,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
     final movieData = Provider.of<Movies>(context);
     return Scaffold(
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.only(),
@@ -76,11 +78,12 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: 268,
+            Expanded(
               child: Swiper(
                 itemBuilder: (BuildContext context, int i) {
                   return MovieContainer(
+                    height: 220,
+                    width: 170,
                     imageUrl: movieData.movies[i].imageUrl,
                     rate: movieData.movies[i].rate,
                     title: movieData.movies[i].title,
@@ -100,6 +103,31 @@ class HomeScreen extends StatelessWidget {
                   style: constants.TextStyles.text1,
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              height: 180,
+              child: ListView.builder(
+                itemCount: movieData.movies.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (ctx, i) => Row(
+                  children: [
+                    MovieContainer(
+                      height: 130,
+                      width: 110,
+                      imageUrl: movieData.movies[i].imageUrl,
+                      rate: movieData.movies[i].rate,
+                      title: movieData.movies[i].title,
+                      duration: movieData.movies[i].duration,
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ),
