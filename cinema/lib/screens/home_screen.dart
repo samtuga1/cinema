@@ -14,66 +14,70 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.only(left: 20.0, top: 20, bottom: 20),
+        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
         child: Column(
           children: [
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {},
-                ),
-                const SizedBox(
-                  width: 40,
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: Colors.black38,
-                    ),
-                    height: 44,
-                    child: const TextField(
-                      cursorColor: Colors.grey,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
+            Padding(
+              padding: const EdgeInsets.only(),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.menu),
+                    onPressed: () {},
+                  ),
+                  const SizedBox(
+                    width: 40,
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: Colors.black38,
+                      ),
+                      height: 44,
+                      child: const TextField(
+                        cursorColor: Colors.grey,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(12),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(3.5),
+                      child: IconButton(
+                        splashRadius: 26,
+                        color: Colors.grey,
+                        icon: const Icon(Icons.search),
+                        onPressed: () {},
+                      ),
                     ),
-                    padding: const EdgeInsets.all(3.5),
-                    child: IconButton(
-                      splashRadius: 26,
-                      color: Colors.grey,
-                      icon: const Icon(Icons.search),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Movies',
-                    style: constants.TextStyles.text1
                   ),
                 ],
               ),
             ),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 15,
+                bottom: 2,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('Movies', style: constants.TextStyles.text1),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 268,
               child: Swiper(
                 itemBuilder: (BuildContext context, int i) {
                   return MovieContainer(
@@ -84,9 +88,18 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 itemCount: movieData.movies.length,
-                viewportFraction: 0.375,
-                scale: 0.85,
+                viewportFraction: 0.38,
+                scale: 0.8,
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Trending',
+                  style: constants.TextStyles.text1,
+                ),
+              ],
             )
           ],
         ),
