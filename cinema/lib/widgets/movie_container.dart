@@ -16,7 +16,8 @@ class MovieContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, children: [
       ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image.network(
@@ -27,8 +28,11 @@ class MovieContainer extends StatelessWidget {
         ),
       ),
       Container(
-        margin: const EdgeInsets.symmetric(vertical: 7),
-        child: Text(title, style: constants.TextStyles.text2,),
+        margin: const EdgeInsets.symmetric(vertical: 3.5),
+        child: Text(
+          title,
+          style: constants.TextStyles.text2,
+        ),
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
