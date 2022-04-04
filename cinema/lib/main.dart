@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Cinema',
         theme: ThemeData.dark(),
-        home: const HomeScreen(),
+        home: HomeScreen(),
         routes: {
           MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
         },
