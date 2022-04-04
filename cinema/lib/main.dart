@@ -1,5 +1,4 @@
 import 'package:cinema/providers/movie.dart';
-import 'package:cinema/providers/movie_chip.dart';
 import './screens/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
 import './screens/home_screen.dart';
@@ -19,8 +18,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
       create: (ctx) => Movies()),
-      ChangeNotifierProvider(
-      create: (ctx) => MoviesChips(),)
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
