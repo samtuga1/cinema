@@ -1,9 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cinema/providers/movie_chip.dart';
 import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie.dart';
-import '../widgets/movie_chips.dart';
+import '../widgets/movie_chips_container.dart';
 import '../widgets/movie_container.dart';
 import '../widgets/movie_type.dart';
 
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movieData = Provider.of<Movies>(context);
+    final movieChips = Provider.of<MoviesChips>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -27,24 +29,35 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 12),
-              height: 40,
-              child:
-                  ListView(scrollDirection: Axis.horizontal, children: const [
-                MovieChips(
-                  name: 'All',
+                margin: const EdgeInsets.only(top: 12),
+                height: 40,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...movieChips.chips.map((chip) => MovieChipContainer(
+                        chipIndex: chip.index, name: chip.name))
+                  ],
+                )
+                //     ListView(
+                //       scrollDirection: Axis.horizontal, children: const [
+                //   MovieChips(
+                //     name: 'All',
+                //     chipIndex: 1,
+                //   ),
+                //   MovieChips(
+                //     name: 'Action',
+                //     chipIndex: 2,
+                //   ),
+                //   MovieChips(
+                //     name: 'Adventure',
+                //     chipIndex: 3,
+                //   ),
+                //   MovieChips(
+                //     name: 'Comedy',
+                //     chipIndex: 4,
+                //   ),
+                // ]),
                 ),
-                MovieChips(
-                  name: 'Action',
-                ),
-                MovieChips(
-                  name: 'Adventure',
-                ),
-                MovieChips(
-                  name: 'Comedy',
-                ),
-              ]),
-            ),
             // Padding(
             //padding: const EdgeInsets.only(),
             //child:
@@ -93,7 +106,7 @@ class HomeScreen extends StatelessWidget {
             //   ],
             // ),
             //),
-            movieType('Trending'),
+            movieType('Top Trends'),
             SizedBox(
               height: 195,
               child: Swiper(
