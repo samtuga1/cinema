@@ -4,21 +4,15 @@ import '../constants.dart' as constants;
 
 class MovieContainer extends StatelessWidget {
   final String? id;
-  final double width;
-  final double height;
   final String imageUrl;
   final int rate;
   final String title;
-  final String duration;
   const MovieContainer({
     Key? key,
     required this.id,
-    required this.height,
-    required this.width,
     required this.imageUrl,
     required this.rate,
     required this.title,
-    required this.duration,
   }) : super(key: key);
 
   @override
@@ -26,15 +20,16 @@ class MovieContainer extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed(MovieDetailScreen.routeName, arguments: id);
+          Navigator.of(context)
+              .pushNamed(MovieDetailScreen.routeName, arguments: id);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(
             imageUrl,
             fit: BoxFit.cover,
-            height: height,
-            width: width,
+            height: 130,
+            width: 117,
           ),
         ),
       ),
@@ -45,22 +40,10 @@ class MovieContainer extends StatelessWidget {
           style: constants.TextStyles.text2,
         ),
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            '⭐ $rate',
-            style: constants.TextStyles.text2,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            duration,
-            style: constants.TextStyles.text2,
-          ),
-        ],
-      )
+      Text(
+        '$rate.0/10',
+        style: constants.TextStyles.text2,
+      ),
     ]);
   }
 }
