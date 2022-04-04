@@ -85,6 +85,7 @@ class HomeScreen extends StatelessWidget {
                     height: 220,
                     width: 170,
                     imageUrl: movieData.movies[i].imageUrl,
+                    id: movieData.movies[i].id,
                     rate: movieData.movies[i].rate,
                     title: movieData.movies[i].title,
                     duration: movieData.movies[i].duration,
@@ -117,6 +118,7 @@ class HomeScreen extends StatelessWidget {
                     MovieContainer(
                       height: 130,
                       width: 110,
+                      id: movieData.movies[i].id,
                       imageUrl: movieData.movies[i].imageUrl,
                       rate: movieData.movies[i].rate,
                       title: movieData.movies[i].title,
