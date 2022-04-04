@@ -9,7 +9,9 @@ import '../widgets/movie_container.dart';
 import '../widgets/movie_type.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,36 +30,31 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
-            Container(
-                margin: const EdgeInsets.only(top: 12),
-                height: 40,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    ...movieChips.chips.map((chip) => MovieChipContainer(
-                        chipIndex: chip.index, name: chip.name))
-                  ],
-                )
-                //     ListView(
-                //       scrollDirection: Axis.horizontal, children: const [
-                //   MovieChips(
-                //     name: 'All',
-                //     chipIndex: 1,
-                //   ),
-                //   MovieChips(
-                //     name: 'Action',
-                //     chipIndex: 2,
-                //   ),
-                //   MovieChips(
-                //     name: 'Adventure',
-                //     chipIndex: 3,
-                //   ),
-                //   MovieChips(
-                //     name: 'Comedy',
-                //     chipIndex: 4,
-                //   ),
-                // ]),
-                ),
+            const MovieChipContainer(),
+            // Container(
+            //     margin: const EdgeInsets.only(top: 12),
+            //     height: 40,
+            //     child: ListView(
+            //       children: [
+            //         Container(
+            //           margin: const EdgeInsets.only(right: 12),
+            //           child: ChoiceChip(
+            //             selectedColor: Colors.purple,
+            //             onSelected: ((value) {
+            //               _isSelected = value;
+            //             }),
+            //             selected: _isSelected,
+            //             label: Padding(
+            //               padding: const EdgeInsets.all(6.0),
+            //               child: Text(
+            //                 'All',
+            //                 style: constants.TextStyles.text2,
+            //               ),
+            //             ),
+            //           ),
+            //         )
+            //       ],
+            //     )),
             // Padding(
             //padding: const EdgeInsets.only(),
             //child:
@@ -110,7 +107,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 195,
               child: Swiper(
-                itemBuilder: (BuildContext context, int i) {
+                itemBuilder: (BuildContext context, i) {
                   return MovieContainer(
                     imageUrl: movieData.movies[i].imageUrl,
                     id: movieData.movies[i].id,
@@ -127,7 +124,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 195,
               child: Swiper(
-                itemBuilder: (BuildContext context, int i) {
+                itemBuilder: (BuildContext context, i) {
                   return MovieContainer(
                     imageUrl: movieData.movies[i].imageUrl,
                     id: movieData.movies[i].id,
@@ -144,7 +141,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 195,
               child: Swiper(
-                itemBuilder: (BuildContext context, int i) {
+                itemBuilder: (BuildContext context, i) {
                   return MovieContainer(
                     imageUrl: movieData.movies[i].imageUrl,
                     id: movieData.movies[i].id,
