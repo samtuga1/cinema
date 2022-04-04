@@ -18,7 +18,7 @@ class MovieDetailScreen extends StatelessWidget {
         overflow: Overflow.visible,
         children: [
           SizedBox(
-            height: deviceHeight * 0.427,
+            height: deviceHeight * 0.43,
             width: double.infinity,
             child: Image.network(
               movie.imageUrl,
@@ -44,16 +44,56 @@ class MovieDetailScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              child: Column(children: [
-                Text(
-                  movie.title, style: constants.TextStyles.text1,
-                  textAlign: TextAlign.left,
+              child: Column(
+                children: [
+                  Text(
+                    movie.title,
+                    style: constants.TextStyles.text1,
+                    textAlign: TextAlign.left,
                   ),
-                  Wrap(
-                    children: List<Text>.generate(
-                    movie.rate.floor(), (index) => const Text('⭐'),
-                      ),)
-                ],),
+                  Row(
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        width: 100,
+                        child: Wrap(
+                          children: List<Text>.generate(
+                            movie.rate.floor(),
+                            (index) => const Text('⭐'),
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(movie.duration),
+                    ],
+                  ),
+                  Expanded(
+                      child: ListView(
+                    children: [Text(movie.description!)],
+                  )),
+                  const Text(
+                    'Cast',
+                    textAlign: TextAlign.left,
+                  ),
+                  Container(
+                      height: 150,
+                      child: ListView.builder(
+                          itemBuilder: (context, i) => Column(
+                                children: [
+                                  Container(
+                                      height: 100,
+                                      width: 85,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Image.network(
+                                        movie.casts![i].imageUrl,
+                                      )),
+                                  Text(movie.casts![i].name)
+                                ],
+                              ),),)
+                ],
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: const BorderRadius.only(
@@ -61,7 +101,7 @@ class MovieDetailScreen extends StatelessWidget {
                     topRight: Radius.circular(15)),
               ),
               alignment: Alignment.bottomCenter,
-              height: deviceHeight * 0.6,
+              height: deviceHeight * 0.58,
             ),
           )
         ],
