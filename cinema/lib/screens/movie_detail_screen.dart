@@ -21,7 +21,7 @@ class MovieDetailScreen extends StatelessWidget {
             height: deviceHeight * 0.42,
             width: double.infinity,
             child: Image.network(
-              movie.imageUrl,
+              movie.imageUrl!,
               fit: BoxFit.cover,
             ),
           ),
@@ -30,15 +30,26 @@ class MovieDetailScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.arrow_back_rounded)),
+                onPressed: () {},
+                icon: const Icon(Icons.arrow_back_rounded),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+          Consumer<Movie>(
+            builder: (context, movie, _) => Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () {
+                    movie.toggleFavorite();
+                  },
+                  icon: Icon(
+                    Icons.favorite_outline,
+                    color: movie.isFavorite ? Colors.pink : null,
+                  ),
+                ),
+              ),
             ),
           ),
           Align(
@@ -51,7 +62,7 @@ class MovieDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movie.title,
+                      movie.title!,
                       style: constants.TextStyles.text1,
                     ),
                     Container(
@@ -62,7 +73,7 @@ class MovieDetailScreen extends StatelessWidget {
                             width: 100,
                             child: Wrap(
                               children: List<Icon>.generate(
-                                movie.rate.floor(),
+                                movie.rate!.floor(),
                                 (index) => const Icon(
                                   Icons.star,
                                   color: Colors.pink,
@@ -73,10 +84,11 @@ class MovieDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            movie.duration,
+                            movie.duration!,
                             style: constants.TextStyles.text2.copyWith(
-                                color: Colors.pink,
-                                fontWeight: FontWeight.w500),
+                              color: Colors.pink,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
