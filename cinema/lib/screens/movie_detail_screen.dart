@@ -18,7 +18,7 @@ class MovieDetailScreen extends StatelessWidget {
         overflow: Overflow.visible,
         children: [
           SizedBox(
-            height: deviceHeight * 0.43,
+            height: deviceHeight * 0.42,
             width: double.infinity,
             child: Image.network(
               movie.imageUrl,
@@ -46,7 +46,7 @@ class MovieDetailScreen extends StatelessWidget {
             child: Container(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -54,45 +54,73 @@ class MovieDetailScreen extends StatelessWidget {
                       movie.title,
                       style: constants.TextStyles.text1,
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          color: Colors.white,
-                          width: 100,
-                          child: Wrap(
-                            children: List<Text>.generate(
-                              movie.rate.floor(),
-                              (index) => const Text('⭐'),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 100,
+                            child: Wrap(
+                              children: List<Icon>.generate(
+                                movie.rate.floor(),
+                                (index) => const Icon(
+                                  Icons.star,
+                                  color: Colors.pink,
+                                  size: 20,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        Text(movie.duration),
-                      ],
+                          const Spacer(),
+                          Text(
+                            movie.duration,
+                            style: constants.TextStyles.text2.copyWith(
+                                color: Colors.pink,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
                     Expanded(
                         child: ListView(
-                      children: [Text(movie.description!)],
+                      children: [
+                        Text(
+                          movie.description!,
+                          style: constants.TextStyles.text2,
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
                     )),
-                    Text(
-                      'Cast',
+                    Container(
+                      margin: const EdgeInsets.only(top: 12, bottom: 8),
+                      child: Text(
+                        'Casts',
+                        style: constants.TextStyles.text1,
+                      ),
                     ),
                     Container(
-                      height: 150,
+                      height: 130,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: movie.casts!.length,
                         itemBuilder: (context, i) => Column(
                           children: [
-                            Container(
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                movie.casts![i].imageUrl,
                                 height: 100,
                                 width: 85,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Image.network(
-                                  movie.casts![i].imageUrl,
-                                )),
-                            Text(movie.casts![i].name)
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 6,
+                            ),
+                            Text(
+                              movie.casts![i].name,
+                              style: constants.TextStyles.text2,
+                            )
                           ],
                         ),
                       ),
@@ -103,11 +131,12 @@ class MovieDetailScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15)),
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
               ),
               alignment: Alignment.bottomCenter,
-              height: deviceHeight * 0.58,
+              height: deviceHeight * 0.6,
             ),
           )
         ],
