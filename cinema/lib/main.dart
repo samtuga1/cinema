@@ -1,7 +1,7 @@
 import 'package:cinema/providers/movie.dart';
-import 'package:cinema/screens/movie_detail_screen.dart';
+import 'package:cinema/providers/movie_chip.dart';
+import './screens/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
-
 import './screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => Movies(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+      create: (ctx) => Movies()),
+      ChangeNotifierProvider(
+      create: (ctx) => MoviesChips(),)
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Cinema',
