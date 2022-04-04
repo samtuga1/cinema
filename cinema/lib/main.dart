@@ -1,4 +1,5 @@
 import 'package:cinema/providers/movie.dart';
+import 'package:cinema/screens/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 import './screens/home_screen.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         title: 'Cinema',
         theme: ThemeData.dark(),
         home: const HomeScreen(),
+        routes: {
+          MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
+        },
       ),
     );
   }
