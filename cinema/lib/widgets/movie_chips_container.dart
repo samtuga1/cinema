@@ -2,41 +2,59 @@ import 'package:flutter/material.dart';
 import '../constants.dart' as constants;
 
 class MovieChipContainer extends StatefulWidget {
-  const MovieChipContainer({
-    Key? key,
-  }) : super(key: key);
+  const MovieChipContainer({Key? key}) : super(key: key);
 
   @override
-  State<MovieChipContainer> createState() => _MovieChipsState();
+  State<MovieChipContainer> createState() => _MyThreeOptionsState();
 }
 
-class _MovieChipsState extends State<MovieChipContainer> {
-  bool isSelected = false;
+class _MyThreeOptionsState extends State<MovieChipContainer> {
+  int? _value = 0;
+
+  Text _chipText(int index) {
+    if (index == 0) {
+      return Text(
+        'All',
+        style: constants.TextStyles.text2,
+      );
+    }
+    if (index == 1) {
+      return Text(
+        'Action',
+        style: constants.TextStyles.text2,
+      );
+    }
+    if (index == 2) {
+      return Text(
+        'Adventure',
+        style: constants.TextStyles.text2,
+      );
+    } else {
+      return Text('');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(top: 9),
       height: 40,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 4,
+        itemCount: 3,
         itemBuilder: ((context, index) => Container(
               margin: const EdgeInsets.only(right: 12),
               child: ChoiceChip(
                 selectedColor: Colors.purple,
-                selected: isSelected,
-                onSelected: (bool value) {
+                label: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: _chipText(index)),
+                selected: _value == index,
+                onSelected: (bool selected) {
                   setState(() {
-                    value = isSelected;
+                    _value = selected ? index : null;
                   });
                 },
-                label: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: Text(
-                    'All',
-                    style: constants.TextStyles.text2,
-                  ),
-                ),
               ),
             )),
       ),
