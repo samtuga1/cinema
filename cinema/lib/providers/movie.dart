@@ -2,24 +2,30 @@ import 'package:flutter/cupertino.dart';
 
 import '../providers/cast.dart';
 
-class Movie {
+class Movie with ChangeNotifier {
   final String? id;
-  final String title;
-  final String imageUrl;
+  final String? title;
+  final String? imageUrl;
   final String? description;
-  final int rate;
+  final int? rate;
   List<Cast>? casts;
-  final String duration;
+  final String? duration;
+  bool isFavorite;
 
   Movie({
     this.id,
-    required this.title,
-    required this.imageUrl,
+    this.title,
+    this.imageUrl,
     this.description,
-    required this.rate,
+    this.rate,
     this.casts,
-    required this.duration,
+    this.duration,
+    this.isFavorite = false,
   });
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }
 
 class Movies with ChangeNotifier {
