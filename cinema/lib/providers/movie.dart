@@ -23,7 +23,7 @@ class Movie {
 }
 
 class Movies with ChangeNotifier {
-  List<Movie> _movies = [
+  final List<Movie> _movies = [
     Movie(
       casts: [
         Cast(
