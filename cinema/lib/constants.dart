@@ -7,7 +7,7 @@ class TextStyles {
   static TextStyle text1 = textstyle.copyWith(
     color: Colors.white,
     fontWeight: FontWeight.bold,
-    fontSize: 22,
+    fontSize: 20,
   );
   static TextStyle text2 = textstyle.copyWith(
     color: Colors.white,
