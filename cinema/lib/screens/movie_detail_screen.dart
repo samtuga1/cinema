@@ -30,7 +30,9 @@ class MovieDetailScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
                 icon: const Icon(Icons.arrow_back_rounded),
               ),
             ),
@@ -45,7 +47,7 @@ class MovieDetailScreen extends StatelessWidget {
                     movie.toggleFavorite();
                   },
                   icon: Icon(
-                    Icons.favorite_outline,
+                    Icons.favorite,
                     color: movie.isFavorite ? Colors.pink : null,
                   ),
                 ),
