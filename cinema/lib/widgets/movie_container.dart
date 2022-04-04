@@ -4,9 +4,9 @@ import '../constants.dart' as constants;
 
 class MovieContainer extends StatelessWidget {
   final String? id;
-  final String imageUrl;
-  final int rate;
-  final String title;
+  final String? imageUrl;
+  final int? rate;
+  final String? title;
   const MovieContainer({
     Key? key,
     required this.id,
@@ -26,7 +26,7 @@ class MovieContainer extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(
-            imageUrl,
+            imageUrl!,
             fit: BoxFit.cover,
             height: 130,
             width: 117,
@@ -36,7 +36,7 @@ class MovieContainer extends StatelessWidget {
       Container(
         margin: const EdgeInsets.symmetric(vertical: 3.5),
         child: Text(
-          title,
+          title!,
           style: constants.TextStyles.text2,
         ),
       ),
