@@ -3,134 +3,147 @@ import '../constants.dart' as constants;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie.dart';
+import '../widgets/movie_chips.dart';
 import '../widgets/movie_container.dart';
+import '../widgets/movie_type.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
     final movieData = Provider.of<Movies>(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Cinema App',
+          style: constants.TextStyles.textstyle,
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: () {},
-                  ),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.black38,
-                      ),
-                      height: 44,
-                      child: const TextField(
-                        cursorColor: Colors.grey,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black12,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.all(3.5),
-                      child: IconButton(
-                        splashRadius: 26,
-                        color: Colors.grey,
-                        icon: const Icon(Icons.search),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              height: 40,
+              child:
+                  ListView(scrollDirection: Axis.horizontal, children: const [
+                MovieChips(
+                  name: 'All',
+                ),
+                MovieChips(
+                  name: 'Action',
+                ),
+                MovieChips(
+                  name: 'Adventure',
+                ),
+                MovieChips(
+                  name: 'Comedy',
+                ),
+              ]),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 15,
-                bottom: 2,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text('Movies', style: constants.TextStyles.text1),
-                ],
-              ),
-            ),
-            Expanded(
+            // Padding(
+            //padding: const EdgeInsets.only(),
+            //child:
+            // Row(
+            //   children: [
+            //     IconButton(
+            //       icon: const Icon(Icons.menu),
+            //       onPressed: () {},
+            //     ),
+            //     const SizedBox(
+            //       width: 40,
+            //     ),
+            //     Expanded(
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(7),
+            //           color: Colors.black38,
+            //         ),
+            //         height: 44,
+            //         child: const TextField(
+            //           cursorColor: Colors.grey,
+            //           decoration: InputDecoration(
+            //             border: OutlineInputBorder(
+            //               borderSide: BorderSide.none,
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           color: Colors.black12,
+            //           borderRadius: BorderRadius.circular(12),
+            //         ),
+            //         padding: const EdgeInsets.all(3.5),
+            //         child: IconButton(
+            //           splashRadius: 26,
+            //           color: Colors.grey,
+            //           icon: const Icon(Icons.search),
+            //           onPressed: () {},
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            //),
+            movieType('Trending'),
+            SizedBox(
+              height: 195,
               child: Swiper(
                 itemBuilder: (BuildContext context, int i) {
                   return MovieContainer(
-                    height: 220,
-                    width: 170,
                     imageUrl: movieData.movies[i].imageUrl,
                     id: movieData.movies[i].id,
                     rate: movieData.movies[i].rate,
                     title: movieData.movies[i].title,
-                    duration: movieData.movies[i].duration,
                   );
                 },
                 itemCount: movieData.movies.length,
-                viewportFraction: 0.38,
-                scale: 0.8,
+                viewportFraction: 0.25,
+                scale: 0.4,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  'Trending',
-                  style: constants.TextStyles.text1,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            movieType('Movies'),
             SizedBox(
-              height: 180,
-              child: ListView.builder(
+              height: 195,
+              child: Swiper(
+                itemBuilder: (BuildContext context, int i) {
+                  return MovieContainer(
+                    imageUrl: movieData.movies[i].imageUrl,
+                    id: movieData.movies[i].id,
+                    rate: movieData.movies[i].rate,
+                    title: movieData.movies[i].title,
+                  );
+                },
                 itemCount: movieData.movies.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, i) => Row(
-                  children: [
-                    MovieContainer(
-                      height: 130,
-                      width: 110,
-                      id: movieData.movies[i].id,
-                      imageUrl: movieData.movies[i].imageUrl,
-                      rate: movieData.movies[i].rate,
-                      title: movieData.movies[i].title,
-                      duration: movieData.movies[i].duration,
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    )
-                  ],
-                ),
+                viewportFraction: 0.25,
+                scale: 0.4,
               ),
-            )
+            ),
+            movieType('Tv Series'),
+            SizedBox(
+              height: 195,
+              child: Swiper(
+                itemBuilder: (BuildContext context, int i) {
+                  return MovieContainer(
+                    imageUrl: movieData.movies[i].imageUrl,
+                    id: movieData.movies[i].id,
+                    rate: movieData.movies[i].rate,
+                    title: movieData.movies[i].title,
+                  );
+                },
+                itemCount: movieData.movies.length,
+                viewportFraction: 0.25,
+                scale: 0.4,
+              ),
+            ),
           ],
         ),
       )),
