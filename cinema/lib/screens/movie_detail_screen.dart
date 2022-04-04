@@ -44,55 +44,61 @@ class MovieDetailScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              child: Column(
-                children: [
-                  Text(
-                    movie.title,
-                    style: constants.TextStyles.text1,
-                    textAlign: TextAlign.left,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        width: 100,
-                        child: Wrap(
-                          children: List<Text>.generate(
-                            movie.rate.floor(),
-                            (index) => const Text('⭐'),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      movie.title,
+                      style: constants.TextStyles.text1,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          width: 100,
+                          child: Wrap(
+                            children: List<Text>.generate(
+                              movie.rate.floor(),
+                              (index) => const Text('⭐'),
+                            ),
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      Text(movie.duration),
-                    ],
-                  ),
-                  Expanded(
-                      child: ListView(
-                    children: [Text(movie.description!)],
-                  )),
-                  const Text(
-                    'Cast',
-                    textAlign: TextAlign.left,
-                  ),
-                  Container(
+                        const Spacer(),
+                        Text(movie.duration),
+                      ],
+                    ),
+                    Expanded(
+                        child: ListView(
+                      children: [Text(movie.description!)],
+                    )),
+                    Text(
+                      'Cast',
+                    ),
+                    Container(
                       height: 150,
                       child: ListView.builder(
-                          itemBuilder: (context, i) => Column(
-                                children: [
-                                  Container(
-                                      height: 100,
-                                      width: 85,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Image.network(
-                                        movie.casts![i].imageUrl,
-                                      )),
-                                  Text(movie.casts![i].name)
-                                ],
-                              ),),)
-                ],
+                        scrollDirection: Axis.horizontal,
+                        itemCount: movie.casts!.length,
+                        itemBuilder: (context, i) => Column(
+                          children: [
+                            Container(
+                                height: 100,
+                                width: 85,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Image.network(
+                                  movie.casts![i].imageUrl,
+                                )),
+                            Text(movie.casts![i].name)
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
