@@ -6,9 +6,8 @@ Padding movieType(String name) {
     padding: const EdgeInsets.only(top: 12, bottom: 2, left: 5),
     child: Text(
       name,
-      style: constants.TextStyles.text1.copyWith(
-        color: Colors.yellow[900],
-      ),
+      style: constants.TextStyles.text1
+          .copyWith(color: Colors.teal, fontWeight: FontWeight.w900),
     ),
   );
 }
