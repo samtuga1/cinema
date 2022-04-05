@@ -7,7 +7,7 @@ class Movie with ChangeNotifier {
   final String? title;
   final String? imageUrl;
   final String? description;
-  final int? rate;
+  final double? rate;
   List<Cast>? casts;
   final String? duration;
   bool isFavorite;
@@ -44,7 +44,7 @@ class Movies with ChangeNotifier {
           'https://images.pexels.com/photos/11387289/pexels-photo-11387289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       title: 'Ant-Man',
       duration: '1hr 30min',
-      rate: 3,
+      rate: 3.6,
     ),
     Movie(
         casts: [
