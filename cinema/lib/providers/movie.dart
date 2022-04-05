@@ -83,7 +83,11 @@ class Movies with ChangeNotifier {
     return _movies;
   }
 
-  Movie findById(String? id) {
+  Movie findSingleById(String? id) {
     return _movies.firstWhere((movie) => movie.id == id);
+  }
+
+  List<Movie> showFavMovies() {
+    return _movies.where((movie) => movie.isFavorite == true).toList();
   }
 }
