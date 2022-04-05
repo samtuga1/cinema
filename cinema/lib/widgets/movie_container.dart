@@ -5,7 +5,7 @@ import '../constants.dart' as constants;
 class MovieContainer extends StatelessWidget {
   final String? id;
   final String? imageUrl;
-  final int? rate;
+  final double? rate;
   final String? title;
   const MovieContainer({
     Key? key,
@@ -41,7 +41,7 @@ class MovieContainer extends StatelessWidget {
         ),
       ),
       Text(
-        '$rate.0/10',
+        '$rate/10',
         style: constants.TextStyles.text2,
       ),
     ]);
