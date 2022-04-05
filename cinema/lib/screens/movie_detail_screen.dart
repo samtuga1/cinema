@@ -12,7 +12,7 @@ class MovieDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final movieId = ModalRoute.of(context)?.settings.arguments as String;
-    final movie = Provider.of<Movies>(context).findById(movieId);
+    final movie = Provider.of<Movies>(context).findSingleById(movieId);
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
