@@ -24,7 +24,6 @@ class Movie with ChangeNotifier {
   });
   void toggleFavorite(Movie movie) {
     movie.isFavorite = !movie.isFavorite;
-    print(movie.isFavorite);
     notifyListeners();
   }
 
