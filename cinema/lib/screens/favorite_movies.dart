@@ -16,8 +16,13 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
     final favMovies = Provider.of<Movies>(context).showFavMovies();
     return Scaffold(
       body: GridView(
-        children: favMovies,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        children: favMovies.map((favMovie) => MovieContainer(
+          id: favMovie.id, 
+          imageUrl: favMovie.imageUrl, 
+          rate: favMovie.rate, 
+          title: favMovie.title,
+          ),).toList(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2/3,),
         )
     );
   }
