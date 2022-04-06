@@ -11,6 +11,7 @@ import '../widgets/movie_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routName = '/home_screen';
   HomeScreen({Key? key}) : super(key: key);
 
   bool _isSelected = false;
