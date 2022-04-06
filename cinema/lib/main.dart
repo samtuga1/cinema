@@ -17,19 +17,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-         ChangeNotifierProvider(
-      create: (ctx) => Movie()),
-        ChangeNotifierProvider(
-      create: (ctx) => Movies()),
+        ChangeNotifierProvider(create: (ctx) => Movie()),
+        ChangeNotifierProvider(create: (ctx) => Movies()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Cinema',
-        theme: ThemeData.dark(),
-        home: HomeScreen(),
+        theme: ThemeData(brightness: Brightness.dark),
+        initialRoute: HomeScreen.routName,
         routes: {
+          HomeScreen.routName:(context) => HomeScreen(),
           MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
-          FavoriteMovies.routName : (context) => const FavoriteMovies(),
+          FavoriteMovies.routName: (context) => const FavoriteMovies(),
         },
       ),
     );
