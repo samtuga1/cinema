@@ -16,18 +16,15 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
   Widget build(BuildContext context) {
     final favMovies = Provider.of<Movies>(context).showFavMovies();
     return Scaffold(
-        body: GridView(
-      children: favMovies
-          .map(
-            (favMovie) => MovieContainer(
-              id: favMovie.id,
-              imageUrl: favMovie.imageUrl,
-              rate: favMovie.rate,
-              title: favMovie.title,
-            ),
-          )
-          .toList(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        body: GridView.builder(
+          itemCount: favMovies.length,
+      itemBuilder: ((context, i) => MovieContainer(
+            id: favMovies[i].id,
+            imageUrl: favMovies[i].imageUrl,
+            rate: favMovies[i].rate,
+            title: favMovies[i].title,
+          )),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 2 / 3,
       ),
