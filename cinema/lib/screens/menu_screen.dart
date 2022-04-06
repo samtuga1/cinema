@@ -1,3 +1,4 @@
+import 'package:cinema/screens/favorite_movies.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart' as constants;
 
@@ -15,7 +16,9 @@ class MenuScreen extends StatelessWidget {
             Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(FavoriteMovies.routName);
+                  },
                   child: ListTile(
                     leading: const Icon(Icons.favorite),
                     title: Text(
