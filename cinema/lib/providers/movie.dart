@@ -9,8 +9,7 @@ class Movie with ChangeNotifier {
   final String? imageUrl;
   final String? description;
   final double? rate;
-  List<Cast>? casts;
-  final String? duration;
+  final String? releaseDate;
   bool isFavorite;
 
   Movie({
@@ -19,8 +18,7 @@ class Movie with ChangeNotifier {
     this.imageUrl,
     this.description,
     this.rate,
-    this.casts,
-    this.duration,
+    this.releaseDate,
     this.isFavorite = false,
   });
   void toggleFavorite(Movie movie) {
@@ -34,50 +32,32 @@ class Movie with ChangeNotifier {
 class Movies with ChangeNotifier {
   final List<Movie> _movies = [
     Movie(
-      casts: [
-        Cast(
-            name: 'Sam Twum',
-            imageUrl:
-                'https://images.pexels.com/photos/11387289/pexels-photo-11387289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
-      ],
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       id: 'm1',
       imageUrl:
           'https://images.pexels.com/photos/11387289/pexels-photo-11387289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       title: 'Ant-Man',
-      duration: '1hr 30min',
+      releaseDate: '2021-12-15',
       rate: 3.6,
     ),
     Movie(
-        casts: [
-          Cast(
-              name: 'Sam Twum',
-              imageUrl:
-                  'https://images.pexels.com/photos/11387289/pexels-photo-11387289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
-        ],
         description:
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         id: 'm2',
         imageUrl:
             'https://images.pexels.com/photos/10594054/pexels-photo-10594054.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         title: 'Ant-Man',
-        duration: '1hr 30min',
+        releaseDate: '2021-12-15',
         rate: 3),
     Movie(
-      casts: [
-        Cast(
-            name: 'Sam Twum',
-            imageUrl:
-                'https://images.pexels.com/photos/11387289/pexels-photo-11387289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500')
-      ],
       description:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       id: 'm3',
       imageUrl:
           'https://images.pexels.com/photos/10025734/pexels-photo-10025734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
       title: 'Ant-Man',
-      duration: '1hr 30min',
+      releaseDate: '2021-12-15',
       rate: 3,
     ),
   ];
@@ -99,17 +79,18 @@ class Movies with ChangeNotifier {
     List<String> movieImageUrls = [];
     List<String> movieDescriptions = [];
     List<String> movieReleaseDates = [];
-    List<String> movieTitle = [];
-    List<String> movieTitle = [];
+    List<String> movieRates = [];
+    List<String> movieCasts = [];
+    List<String> movieIds = [];
     const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
-    const url =
-        'https://api.themoviedb.org/3/trending/all/week?api_key=$_apiKey';
+    const url = 'https://api.themoviedb.org/3/discover/movie?api_key=$_apiKey';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode >= 400) {
         return;
       }
       final extractedData = json.decode(response.body);
+      print(extractedData);
     } catch (error) {
       print(error);
     }
