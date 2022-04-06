@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie.dart';
+import '../constants.dart' as constants;
 
 class FavoriteMovies extends StatefulWidget {
   static const routName = '/fav_screen';
@@ -24,7 +25,7 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
       mainScreen: Scaffold(
         appBar: AppBar(
           leading: const MenuWidget(),
-          title: const Text('Favorites'),
+          title: Text('Favorites', style: constants.TextStyles.textstyle),
           centerTitle: true,
         ),
         body: GridView.builder(
