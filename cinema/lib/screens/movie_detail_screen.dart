@@ -44,7 +44,7 @@ class MovieDetailScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   onPressed: () {
-                    movie.toggleFavorite();
+                    movie.toggleFavorite(movie);
                   },
                   icon: Icon(
                     Icons.favorite,
