@@ -92,4 +92,9 @@ class Movies with ChangeNotifier {
   List<Movie> showFavMovies() {
     return _movies.where((movie) => movie.isFavorite == true).toList();
   }
+
+  Future<void> getTrendingMovies() async {
+    const apiKey = 'fea6af77e4406e51f9d36692af5620c4';
+    
+  }
 }
