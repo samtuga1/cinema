@@ -10,7 +10,7 @@ class Movie with ChangeNotifier {
   final double? rate;
   List<Cast>? casts;
   final String? duration;
-  bool isFavorite = false;
+  bool isFavorite;
 
   Movie({
     this.id,
@@ -20,11 +20,15 @@ class Movie with ChangeNotifier {
     this.rate,
     this.casts,
     this.duration,
+    this.isFavorite = false,
   });
   void toggleFavorite(Movie movie) {
     movie.isFavorite = !movie.isFavorite;
+    print(movie.isFavorite);
     notifyListeners();
   }
+
+  bool fav(Movie mov) => mov.isFavorite;
 }
 
 class Movies with ChangeNotifier {
