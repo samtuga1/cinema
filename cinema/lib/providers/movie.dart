@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../providers/cast.dart';
 
 class Movie with ChangeNotifier {
@@ -94,7 +95,23 @@ class Movies with ChangeNotifier {
   }
 
   Future<void> getTrendingMovies() async {
-    const apiKey = 'fea6af77e4406e51f9d36692af5620c4';
-    
+    List<String> movieTitles = [];
+    List<String> movieImageUrls = [];
+    List<String> movieDescriptions = [];
+    List<String> movieReleaseDates = [];
+    List<String> movieTitle = [];
+    List<String> movieTitle = [];
+    const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
+    const url =
+        'https://api.themoviedb.org/3/trending/all/week?api_key=$_apiKey';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode >= 400) {
+        return;
+      }
+      final extractedData = json.decode(response.body);
+    } catch (error) {
+      print(error);
+    }
   }
 }
