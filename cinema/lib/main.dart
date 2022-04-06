@@ -1,4 +1,5 @@
 import 'package:cinema/providers/movie.dart';
+import 'package:cinema/screens/favorite_movies.dart';
 import './screens/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
 import './screens/home_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         home: HomeScreen(),
         routes: {
           MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
+          FavoriteMovies.routName : (context) => const FavoriteMovies(),
         },
       ),
     );
