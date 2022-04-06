@@ -7,7 +7,7 @@ Padding movieType(String name) {
     child: Text(
       name,
       style: constants.TextStyles.text1
-          .copyWith(color: Colors.teal, fontWeight: FontWeight.w900),
+          .copyWith(color: Colors.amber, fontWeight: FontWeight.w900),
     ),
   );
 }
