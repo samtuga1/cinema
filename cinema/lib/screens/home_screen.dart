@@ -10,9 +10,20 @@ import '../widgets/movie_container.dart';
 import '../widgets/movie_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routName = '/home_screen';
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void didChangeDependencies() {
+    Provider.of<Movies>(context).getTrendingMovies();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
