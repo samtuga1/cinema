@@ -62,7 +62,7 @@ class MenuScreenItem extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-          onTap: () => onPressed,
+          onTap: onPressed,
           child: ListTile(
             leading: icon,
             title: Text(
