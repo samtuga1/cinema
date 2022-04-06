@@ -83,14 +83,18 @@ class Movies with ChangeNotifier {
     List<String> movieCasts = [];
     List<String> movieIds = [];
     const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
-    const url = 'https://api.themoviedb.org/3/discover/movie?api_key=$_apiKey';
+    const url =
+        'https://api.themoviedb.org/3/trending/all/week?api_key=$_apiKey';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode >= 400) {
         return;
       }
       final extractedData = json.decode(response.body);
-      print(extractedData);
+      String movieTitle = extractedData['results'][0]['original_title'];
+      List moviesList = extractedData['results'] as List;
+      print(movieTitle);
+      print(moviesList.length);
     } catch (error) {
       print(error);
     }
