@@ -86,15 +86,16 @@ class MovieDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            singleMovie.duration!,
+                            "Release : ${singleMovie.releaseDate!}",
                             style: constants.TextStyles.text2.copyWith(
                               color: Colors.pink,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
                     ),
+                    
                     Expanded(
                         child: ListView(
                       children: [
@@ -105,40 +106,40 @@ class MovieDetailScreen extends StatelessWidget {
                         ),
                       ],
                     )),
-                    Container(
-                      margin: const EdgeInsets.only(top: 12, bottom: 8),
-                      child: Text(
-                        'Casts',
-                        style: constants.TextStyles.text1,
-                      ),
-                    ),
-                    Container(
-                      height: 130,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: singleMovie.casts!.length,
-                        itemBuilder: (context, i) => Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                singleMovie.casts![i].imageUrl,
-                                height: 100,
-                                width: 85,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              singleMovie.casts![i].name,
-                              style: constants.TextStyles.text2,
-                            )
-                          ],
-                        ),
-                      ),
-                    )
+                    // Container(
+                    //   margin: const EdgeInsets.only(top: 12, bottom: 8),
+                    //   child: Text(
+                    //     'Casts',
+                    //     style: constants.TextStyles.text1,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   height: 130,
+                    //   child: ListView.builder(
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: singleMovie.casts!.length,
+                    //     itemBuilder: (context, i) => Column(
+                    //       children: [
+                    //         ClipRRect(
+                    //           borderRadius: BorderRadius.circular(10),
+                    //           child: Image.network(
+                    //             singleMovie.casts![i].imageUrl,
+                    //             height: 100,
+                    //             width: 85,
+                    //             fit: BoxFit.cover,
+                    //           ),
+                    //         ),
+                    //         const SizedBox(
+                    //           height: 6,
+                    //         ),
+                    //         Text(
+                    //           singleMovie.casts![i].name,
+                    //           style: constants.TextStyles.text2,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
