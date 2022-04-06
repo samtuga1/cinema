@@ -11,8 +11,7 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final movieId = ModalRoute.of(context)?.settings.arguments as String;
-    final movie = Provider.of<Movies>(context).findSingleById(movieId);
+    final singleMovie = ModalRoute.of(context)?.settings.arguments as Movie;
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
@@ -21,7 +20,7 @@ class MovieDetailScreen extends StatelessWidget {
             height: deviceHeight * 0.42,
             width: double.infinity,
             child: Image.network(
-              movie.imageUrl!,
+              singleMovie.imageUrl!,
               fit: BoxFit.cover,
             ),
           ),
@@ -37,19 +36,20 @@ class MovieDetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          Consumer<Movie>(
-            builder: (context, movie, _) => Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () {
-                    movie.toggleFavorite(movie);
-                  },
-                  icon: Icon(
-                    Icons.favorite,
-                    color: movie.isFavorite ? Colors.pink : null,
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () {
+                  Provider.of<Movie>(context, listen: false)
+                      .toggleFavorite(singleMovie);
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: Provider.of<Movie>(context).fav(singleMovie)
+                      ? Colors.pink
+                      : null,
                 ),
               ),
             ),
@@ -64,7 +64,7 @@ class MovieDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movie.title!,
+                      singleMovie.title!,
                       style: constants.TextStyles.text1,
                     ),
                     Container(
@@ -75,7 +75,7 @@ class MovieDetailScreen extends StatelessWidget {
                             width: 100,
                             child: Wrap(
                               children: List<Icon>.generate(
-                                movie.rate!.floor(),
+                                singleMovie.rate!.floor(),
                                 (index) => const Icon(
                                   Icons.star,
                                   color: Colors.pink,
@@ -86,7 +86,7 @@ class MovieDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            movie.duration!,
+                            singleMovie.duration!,
                             style: constants.TextStyles.text2.copyWith(
                               color: Colors.pink,
                               fontWeight: FontWeight.w500,
@@ -99,7 +99,7 @@ class MovieDetailScreen extends StatelessWidget {
                         child: ListView(
                       children: [
                         Text(
-                          movie.description!,
+                          singleMovie.description!,
                           style: constants.TextStyles.text2,
                           textAlign: TextAlign.start,
                         ),
@@ -116,13 +116,13 @@ class MovieDetailScreen extends StatelessWidget {
                       height: 130,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: movie.casts!.length,
+                        itemCount: singleMovie.casts!.length,
                         itemBuilder: (context, i) => Column(
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.network(
-                                movie.casts![i].imageUrl,
+                                singleMovie.casts![i].imageUrl,
                                 height: 100,
                                 width: 85,
                                 fit: BoxFit.cover,
@@ -132,7 +132,7 @@ class MovieDetailScreen extends StatelessWidget {
                               height: 6,
                             ),
                             Text(
-                              movie.casts![i].name,
+                              singleMovie.casts![i].name,
                               style: constants.TextStyles.text2,
                             )
                           ],
