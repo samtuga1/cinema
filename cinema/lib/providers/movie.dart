@@ -91,6 +91,7 @@ class Movies with ChangeNotifier {
       }
       final extractedData = json.decode(response.body);
       List moviesList = extractedData['results'] as List;
+      List<Movie> loadedMovies = [];
       for (int i = 0; i < moviesList.length; i++) {
         String movieTitle = moviesList[i]['original_title'];
         String movieImage =
