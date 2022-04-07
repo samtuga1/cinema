@@ -19,15 +19,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isInit = true;
   @override
   void didChangeDependencies() {
-    Provider.of<Movies>(context).getTrendingMovies();
+    if (isInit) {
+      setMoviesList();
+    }
+    isInit = false;
     super.didChangeDependencies();
+  }
+
+  Future<void> setMoviesList() async {
+    await Provider.of<Movies>(context).getTrendingMovies();
   }
 
   @override
   Widget build(BuildContext context) {
-    final movieData = Provider.of<Movies>(context);
+    final movieData = Provider.of<Movies>(context, listen: false);
     return ZoomDrawer(
       style: DrawerStyle.Style1,
       menuScreen: const MenuScreen(),
@@ -49,22 +57,34 @@ class _HomeScreenState extends State<HomeScreen> {
               movieType('Top Trends'),
               SizedBox(
                 height: 195,
-                child: Swiper(
-                  itemBuilder: (BuildContext context, i) {
-                    return ChangeNotifierProvider(
-                      create: (context) => Movie(),
-                      child: MovieContainer(
-                        imageUrl: movieData.movies[i].imageUrl,
-                        id: movieData.movies[i].id,
-                        rate: movieData.movies[i].rate,
-                        title: movieData.movies[i].title,
-                      ),
-                    );
-                  },
-                  itemCount: movieData.movies.length,
-                  viewportFraction: 0.25,
-                  scale: 0.4,
-                ),
+                child: FutureBuilder(
+                    future: setMoviesList(),//movieData.getTrendingMovies(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasData) {
+                        return Swiper(
+                          itemBuilder: (BuildContext context, i) {
+                            return ChangeNotifierProvider(
+                              create: (context) => Movie(),
+                              child: MovieContainer(
+                                imageUrl: movieData.movies[i].imageUrl,
+                                id: movieData.movies[i].id,
+                                rate: movieData.movies[i].rate,
+                                title: movieData.movies[i].title,
+                              ),
+                            );
+                          },
+                          itemCount: movieData.movies.length,
+                          viewportFraction: 0.25,
+                          scale: 0.4,
+                        );
+                      } else {
+                        return Text('Erroe');
+                      }
+                    }),
               ),
               // movieType('Movies'),
               // SizedBox(
