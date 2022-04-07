@@ -119,6 +119,8 @@ class Movies with ChangeNotifier {
         );
       }
       _movies = loadedMovies;
+      notifyListeners();
+      print(_movies.last.title);
     } catch (error) {
       print(error);
     }
