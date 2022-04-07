@@ -66,40 +66,40 @@ class _HomeScreenState extends State<HomeScreen> {
                   scale: 0.4,
                 ),
               ),
-              movieType('Movies'),
-              SizedBox(
-                height: 195,
-                child: Swiper(
-                  itemBuilder: (BuildContext context, i) {
-                    return MovieContainer(
-                      imageUrl: movieData.movies[i].imageUrl,
-                      id: movieData.movies[i].id,
-                      rate: movieData.movies[i].rate,
-                      title: movieData.movies[i].title,
-                    );
-                  },
-                  itemCount: movieData.movies.length,
-                  viewportFraction: 0.25,
-                  scale: 0.4,
-                ),
-              ),
-              movieType('Tv Series'),
-              SizedBox(
-                height: 195,
-                child: Swiper(
-                  itemBuilder: (BuildContext context, i) {
-                    return MovieContainer(
-                      imageUrl: movieData.movies[i].imageUrl,
-                      id: movieData.movies[i].id,
-                      rate: movieData.movies[i].rate,
-                      title: movieData.movies[i].title,
-                    );
-                  },
-                  itemCount: movieData.movies.length,
-                  viewportFraction: 0.25,
-                  scale: 0.4,
-                ),
-              ),
+              // movieType('Movies'),
+              // SizedBox(
+              //   height: 195,
+              //   child: Swiper(
+              //     itemBuilder: (BuildContext context, i) {
+              //       return MovieContainer(
+              //         imageUrl: movieData.movies[i].imageUrl,
+              //         id: movieData.movies[i].id,
+              //         rate: movieData.movies[i].rate,
+              //         title: movieData.movies[i].title,
+              //       );
+              //     },
+              //     itemCount: movieData.movies.length,
+              //     viewportFraction: 0.25,
+              //     scale: 0.4,
+              //   ),
+              // ),
+              // movieType('Tv Series'),
+              // SizedBox(
+              //   height: 195,
+              //   child: Swiper(
+              //     itemBuilder: (BuildContext context, i) {
+              //       return MovieContainer(
+              //         imageUrl: movieData.movies[i].imageUrl,
+              //         id: movieData.movies[i].id,
+              //         rate: movieData.movies[i].rate,
+              //         title: movieData.movies[i].title,
+              //       );
+              //     },
+              //     itemCount: movieData.movies.length,
+              //     viewportFraction: 0.25,
+              //     scale: 0.4,
+              //   ),
+              // ),
             ],
           ),
         )),
