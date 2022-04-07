@@ -80,7 +80,6 @@ class Movies with ChangeNotifier {
     List<String> movieDescriptions = [];
     List<String> movieReleaseDates = [];
     List<String> movieRates = [];
-    List<String> movieCasts = [];
     List<String> movieIds = [];
     const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
     const url =
@@ -91,10 +90,23 @@ class Movies with ChangeNotifier {
         return;
       }
       final extractedData = json.decode(response.body);
-      String movieTitle = extractedData['results'][0]['original_title'];
       List moviesList = extractedData['results'] as List;
-      print(movieTitle);
-      print(moviesList.length);
+      for (int i = 0; i < moviesList.length; i++) {
+        String movieTitle = moviesList[i]['original_title'];
+        String movieImage =
+            'https://image.tmdb.org/t/p/w400${moviesList[i]['poster_path']}'; //results[0].poster_path
+        String movieDescription =
+            moviesList[i]['overview']; //results[0].overview
+        String movieReleaseDate = moviesList[i]['release_date'];
+        String movieRate = moviesList[i]['vote_average'].toString();
+        String movieId = moviesList[i]['id'].toString();
+        movieTitles.add(movieTitle);
+        movieImageUrls.add(movieImage);
+        movieDescriptions.add(movieDescription);
+        movieReleaseDates.add(movieReleaseDate);
+        movieRates.add(movieRate);
+        movieIds.add(movieId);
+      }
     } catch (error) {
       print(error);
     }
