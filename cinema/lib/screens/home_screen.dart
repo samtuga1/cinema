@@ -10,32 +10,13 @@ import '../widgets/movie_container.dart';
 import '../widgets/movie_type.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   static const routName = '/home_screen';
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  bool isInit = true;
-  @override
-  void didChangeDependencies() {
-    if (isInit) {
-      setMoviesList();
-    }
-    isInit = false;
-    super.didChangeDependencies();
-  }
-
-  Future<void> setMoviesList() async {
-    await Provider.of<Movies>(context).getTrendingMovies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final movieData = Provider.of<Movies>(context, listen: false);
+    print('build run');
     return ZoomDrawer(
       style: DrawerStyle.Style1,
       menuScreen: const MenuScreen(),
@@ -58,35 +39,68 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 195,
                 child: FutureBuilder(
-                    future: setMoviesList(),//movieData.getTrendingMovies(),
+                    future: Provider.of<Movies>(context, listen: false).loadMovies(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (snapshot.hasData) {
-                        return Swiper(
-                          itemBuilder: (BuildContext context, i) {
-                            return ChangeNotifierProvider(
-                              create: (context) => Movie(),
-                              child: MovieContainer(
-                                imageUrl: movieData.movies[i].imageUrl,
-                                id: movieData.movies[i].id,
-                                rate: movieData.movies[i].rate,
-                                title: movieData.movies[i].title,
-                              ),
-                            );
-                          },
-                          itemCount: movieData.movies.length,
-                          viewportFraction: 0.25,
-                          scale: 0.4,
-                        );
+                      }
+                      if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
                       } else {
-                        return Text('Erroe');
+                        return Consumer<Movies>(
+                          builder: (context, movieData, _) => Swiper(
+                            itemBuilder: (BuildContext context, i) {
+                              return MovieContainer(
+                                imageUrl: movieData.trendingMovies[i].imageUrl,
+                                id: movieData.trendingMovies[i].id,
+                                rate: movieData.trendingMovies[i].rate,
+                                title: movieData.trendingMovies[i].title,
+                              );
+                            },
+                            itemCount: movieData.trendingMovies.length,
+                            viewportFraction: 0.25,
+                            scale: 0.4,
+                          ),
+                        );
                       }
                     }),
               ),
-              // movieType('Movies'),
+
+              movieType('Discover'),
+              // SizedBox(
+              //   height: 195,
+              //   child: Consumer<Movies>(
+              //     builder: (context, movieData, _) => FutureBuilder(
+              //         future: movieData.loadMovies(),
+              //         builder: (context, snapshot) {
+              //           if (snapshot.connectionState ==
+              //               ConnectionState.waiting) {
+              //             return const Center(
+              //               child: CircularProgressIndicator(),
+              //             );
+              //           } else if (snapshot.connectionState ==
+              //               ConnectionState.done) {
+              //             return Swiper(
+              //               itemBuilder: (BuildContext context, i) {
+              //                 return MovieContainer(
+              //                   imageUrl: movieData.discoverMovies[i].imageUrl,
+              //                   id: movieData.discoverMovies[i].id,
+              //                   rate: movieData.discoverMovies[i].rate,
+              //                   title: movieData.discoverMovies[i].title,
+              //                 );
+              //               },
+              //               itemCount: movieData.discoverMovies.length,
+              //               viewportFraction: 0.25,
+              //               scale: 0.4,
+              //             );
+              //           } else {
+              //             return Text('error');
+              //           }
+              //         }),
+              //   ),
+              // ),
               // SizedBox(
               //   height: 195,
               //   child: Swiper(

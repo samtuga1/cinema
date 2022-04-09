@@ -37,15 +37,17 @@ class MovieContainer extends StatelessWidget {
           ),
         ),
       ),
-      Container(
-        margin: const EdgeInsets.symmetric(vertical: 3.5),
-        child: Text(
-          title!,
-          style: constants.TextStyles.text2,
+      Expanded(
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 3.5),
+          child: Text(
+            title ?? 'Loading',
+            style: constants.TextStyles.text2,
+          ),
         ),
       ),
       Text(
-        '$rate/10',
+        '${rate ?? ''}/10',
         style: constants.TextStyles.text2,
       ),
     ]);
