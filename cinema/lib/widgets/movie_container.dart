@@ -1,8 +1,6 @@
-import 'package:cinema/providers/movie.dart';
 import 'package:cinema/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart' as constants;
-import 'package:provider/provider.dart';
 
 class MovieContainer extends StatelessWidget {
   final String? description;
@@ -23,8 +21,6 @@ class MovieContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final singleMovie =
-        Provider.of<Movies>(context, listen: false).findSingleById(id);
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       GestureDetector(
         onTap: () {
