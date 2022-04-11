@@ -16,9 +16,9 @@ class FavoriteMovies extends StatefulWidget {
 }
 
 class _FavoriteMoviesState extends State<FavoriteMovies> {
+
   @override
   Widget build(BuildContext context) {
-    final favMovies = Provider.of<Movies>(context).showFavMovies();
     return ZoomDrawer(
       style: DrawerStyle.Style1,
       menuScreen: const MenuScreen(),
@@ -28,17 +28,20 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
           title: Text('Favorites', style: constants.TextStyles.textstyle),
           centerTitle: true,
         ),
-        body: GridView.builder(
-          itemCount: favMovies.length,
-          itemBuilder: ((context, i) => MovieContainer(
-                id: favMovies[i].id,
-                imageUrl: favMovies[i].imageUrl,
-                rate: favMovies[i].rate,
-                title: favMovies[i].title,
-              )),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2 / 3,
+        body: Consumer<Movies>(
+          builder: (context, movies, child) => GridView.builder(
+            itemCount: movies.showFavMovies().length,
+            itemBuilder: ((context, i) => MovieContainer(
+                  id: movies.showFavMovies()[i].id,
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w500${movies.showFavMovies()[i].imageUrl}',
+                  rate: movies.showFavMovies()[i].rate,
+                  title: movies.showFavMovies()[i].title,
+                )),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2 / 3,
+            ),
           ),
         ),
       ),
