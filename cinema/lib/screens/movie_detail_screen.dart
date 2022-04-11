@@ -72,7 +72,7 @@ class MovieDetailScreen extends StatelessWidget {
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 100,
                             child: Wrap(
                               children: List<Icon>.generate(
@@ -87,7 +87,7 @@ class MovieDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            "Release : ${movieData[4]}",
+                            "Release : ${movieData[4] ?? 'Not found'}",
                             style: constants.TextStyles.text2.copyWith(
                               color: Colors.pink,
                               fontWeight: FontWeight.bold,
