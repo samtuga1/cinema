@@ -33,13 +33,13 @@ class Movie with ChangeNotifier {
 class Movies with ChangeNotifier {
   List<Movie> _movies = [];
   List<Movie> _trendingMovies = [];
-  List _discoverMovies = [];
+  List<Movie> _discoverMovies = [];
 
   List<Movie> get trendingMovies {
     return _trendingMovies;
   }
 
-  List get discoverMovies {
+  List<Movie> get discoverMovies {
     return _discoverMovies;
   }
 
@@ -56,6 +56,7 @@ class Movies with ChangeNotifier {
     const _readAccessToken =
         'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZWE2YWY3N2U0NDA2ZTUxZjlkMzY2OTJhZjU2MjBjNCIsInN1YiI6IjYyNGRmOWRmOTAyMDEyMDA5ZDY2NTFmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EKVQ649G0Y4a9ADoej11Sa0p8kTx6Ej6vaY0-G-PkUA';
     List<Movie> loadedTrendingMovies = [];
+    List<Movie> loadedDiscoverMovies = [];
     TMDB tmdbWithCustomLogs = TMDB(
       ApiKeys(_apiKey, _readAccessToken),
       logConfig: const ConfigLogger(
@@ -64,11 +65,13 @@ class Movies with ChangeNotifier {
       ),
     );
     try {
-      final trendingMoviesResponse = await tmdbWithCustomLogs.v3.trending
-          .getTrending() as Map<String, dynamic>;
-      final discoverMoviesResponse = await tmdbWithCustomLogs.v3.discover
-          .getMovies() as Map<String, dynamic>;
-      final trendingReults = trendingMoviesResponse['results'] as List;
+      final trendingMoviesResponse =
+          await tmdbWithCustomLogs.v3.trending.getTrending();
+      final discoverMoviesResponse =
+          await tmdbWithCustomLogs.v3.discover.getMovies();
+      final trendingReults = trendingMoviesResponse['results'] as List<dynamic>;
+      final discoverResults =
+          discoverMoviesResponse['results'] as List<dynamic>;
       for (var movieData in trendingReults) {
         loadedTrendingMovies.add(Movie(
           id: movieData['id'].toString(),
@@ -79,12 +82,24 @@ class Movies with ChangeNotifier {
           imageUrl: movieData['poster_path'],
         ));
       }
+      for (var movieData in discoverResults) {
+        loadedDiscoverMovies.add(Movie(
+          id: movieData['id'].toString(),
+          title: movieData['original_title'] ?? 'Loading...',
+          description: movieData['overview'] ?? 'Loading...',
+          rate: movieData['vote_average'],
+          releaseDate: movieData['release_date'],
+          imageUrl: movieData['poster_path'],
+        ));
+      }
       _trendingMovies = loadedTrendingMovies;
+      _discoverMovies = loadedDiscoverMovies;
+      _movies = _trendingMovies + _discoverMovies;
+      print(_movies.first.title);
       notifyListeners();
     } catch (error) {
       print(error);
       rethrow;
     }
-    print(_trendingMovies.last.title);
   }
 }
