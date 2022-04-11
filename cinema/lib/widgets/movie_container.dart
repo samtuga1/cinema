@@ -5,12 +5,16 @@ import '../constants.dart' as constants;
 import 'package:provider/provider.dart';
 
 class MovieContainer extends StatelessWidget {
+  final String? description;
+  final String? releaseDate;
   final String? id;
   final String? imageUrl;
   final double? rate;
   final String? title;
   const MovieContainer({
     Key? key,
+    this.releaseDate,
+    this.description,
     required this.id,
     required this.imageUrl,
     required this.rate,
@@ -25,7 +29,7 @@ class MovieContainer extends StatelessWidget {
       GestureDetector(
         onTap: () {
           Navigator.of(context)
-              .pushNamed(MovieDetailScreen.routeName, arguments: singleMovie);
+              .pushNamed(MovieDetailScreen.routeName, arguments: [title, description, rate, imageUrl, releaseDate, id]);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -41,7 +45,7 @@ class MovieContainer extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 3.5),
           child: Text(
-            title ?? 'Loading',
+            title ?? 'Loading...',
             style: constants.TextStyles.text2,
           ),
         ),
