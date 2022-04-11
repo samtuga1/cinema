@@ -11,7 +11,8 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final singleMovie = ModalRoute.of(context)?.settings.arguments as Movie;
+    final movieData = ModalRoute.of(context)?.settings.arguments as List<dynamic>;
+    final singleMovie = Provider.of<Movies>(context, listen: false).findSingleById(movieData[5]);
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
@@ -20,7 +21,7 @@ class MovieDetailScreen extends StatelessWidget {
             height: deviceHeight * 0.42,
             width: double.infinity,
             child: Image.network(
-              singleMovie.imageUrl!,
+              movieData[3],
               fit: BoxFit.cover,
             ),
           ),
@@ -64,7 +65,7 @@ class MovieDetailScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      singleMovie.title!,
+                      movieData[0],
                       style: constants.TextStyles.text1,
                     ),
                     Container(
@@ -75,7 +76,7 @@ class MovieDetailScreen extends StatelessWidget {
                             width: 100,
                             child: Wrap(
                               children: List<Icon>.generate(
-                                singleMovie.rate!.floor(),
+                                movieData[2].floor(),
                                 (index) => const Icon(
                                   Icons.star,
                                   color: Colors.pink,
@@ -86,7 +87,7 @@ class MovieDetailScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            "Release : ${singleMovie.releaseDate!}",
+                            "Release : ${movieData[4]}",
                             style: constants.TextStyles.text2.copyWith(
                               color: Colors.pink,
                               fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class MovieDetailScreen extends StatelessWidget {
                         child: ListView(
                       children: [
                         Text(
-                          singleMovie.description!,
+                          movieData[1],
                           style: constants.TextStyles.text2,
                           textAlign: TextAlign.start,
                         ),
