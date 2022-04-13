@@ -62,7 +62,27 @@ class _MoviesListViewState extends State<MoviesListView> {
                     rate: movieData.discoverMovies[i].rate,
                     title: movieData.discoverMovies[i].title,
                   );
-                } else {
+                } else if (widget.movieType == 'top rated') {
+                  return MovieContainer(
+                    releaseDate: movieData.topRatedMovies[i].releaseDate,
+                    description: movieData.topRatedMovies[i].description,
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500${movieData.topRatedMovies[i].imageUrl}',
+                    id: movieData.topRatedMovies[i].id,
+                    rate: movieData.topRatedMovies[i].rate,
+                    title: movieData.topRatedMovies[i].title,
+                  );
+                } else if (widget.movieType == 'tv popular') {
+                  return MovieContainer(
+                    releaseDate: movieData.tvPopular[i].releaseDate,
+                    description: movieData.tvPopular[i].description,
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500${movieData.tvPopular[i].imageUrl}',
+                    id: movieData.tvPopular[i].id,
+                    rate: movieData.tvPopular[i].rate,
+                    title: movieData.tvPopular[i].title,
+                  );
+                }else {
                   return const  Text('No movie Type specified');
                 }
               },
