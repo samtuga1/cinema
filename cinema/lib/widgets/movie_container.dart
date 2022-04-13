@@ -21,11 +21,12 @@ class MovieContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, children: [
       GestureDetector(
         onTap: () {
-          Navigator.of(context)
-              .pushNamed(MovieDetailScreen.routeName, arguments: [title, description, rate, imageUrl, releaseDate, id ]);
+          Navigator.of(context).pushNamed(MovieDetailScreen.routeName,
+              arguments: [title, description, rate, imageUrl, releaseDate, id]);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
@@ -37,7 +38,8 @@ class MovieContainer extends StatelessWidget {
           ),
         ),
       ),
-      Expanded(
+      SizedBox(
+        height: 45,
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 3.5),
           child: Text(
