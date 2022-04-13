@@ -25,7 +25,7 @@ class MovieContainer extends StatelessWidget {
       GestureDetector(
         onTap: () {
           Navigator.of(context)
-              .pushNamed(MovieDetailScreen.routeName, arguments: [title, description, rate, imageUrl, releaseDate, id]);
+              .pushNamed(MovieDetailScreen.routeName, arguments: [title, description, rate, imageUrl, releaseDate, id ]);
         },
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
