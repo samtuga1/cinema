@@ -7,15 +7,9 @@ import 'package:provider/provider.dart';
 import '../providers/movie.dart';
 import '../constants.dart' as constants;
 
-class FavoriteMovies extends StatefulWidget {
+class FavoriteMovies extends StatelessWidget {
   static const routName = '/fav_screen';
   const FavoriteMovies({Key? key}) : super(key: key);
-
-  @override
-  State<FavoriteMovies> createState() => _FavoriteMoviesState();
-}
-
-class _FavoriteMoviesState extends State<FavoriteMovies> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +22,25 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
           title: Text('Favorites', style: constants.TextStyles.textstyle),
           centerTitle: true,
         ),
-        body: Consumer<Movies>(
-          builder: (context, movies, child) => GridView.builder(
-            itemCount: movies.showFavMovies().length,
-            itemBuilder: ((context, i) => MovieContainer(
-                  id: movies.showFavMovies()[i].id,
-                  imageUrl:
-                      'https://image.tmdb.org/t/p/w500${movies.showFavMovies()[i].imageUrl}',
-                  rate: movies.showFavMovies()[i].rate,
-                  title: movies.showFavMovies()[i].title,
-                )),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 2 / 3,
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Consumer<Movies>(
+            builder: (context, movies, child) => GridView.builder(
+              itemCount: movies.showFavMovies().length,
+              itemBuilder: ((context, i) => MovieContainer(
+                    description: movies.showFavMovies()[i].description,
+                    releaseDate: movies.showFavMovies()[i].releaseDate,
+                    id: movies.showFavMovies()[i].id,
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500${movies.showFavMovies()[i].imageUrl}',
+                    rate: movies.showFavMovies()[i].rate,
+                    title: movies.showFavMovies()[i].title,
+                  )),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 2 / 3,
+                mainAxisSpacing: 0.0,
+              ),
             ),
           ),
         ),
