@@ -11,8 +11,10 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    final movieData = ModalRoute.of(context)?.settings.arguments as List<dynamic>;
-    final singleMovie = Provider.of<Movies>(context, listen: false).findSingleById(movieData[5]);
+    final movieData =
+        ModalRoute.of(context)?.settings.arguments as List<dynamic>;
+    final singleMovie = Provider.of<Movies>(context, listen: false)
+        .findSingleById(movieData[5]);
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
@@ -76,7 +78,8 @@ class MovieDetailScreen extends StatelessWidget {
                             width: 100,
                             child: Wrap(
                               children: List<Icon>.generate(
-                                movieData[2].floor(),
+                                ((movieData[2] / 10) * 5)
+                                    .round(), //rate! / 10) * 5
                                 (index) => const Icon(
                                   Icons.star,
                                   color: Colors.pink,
@@ -96,7 +99,6 @@ class MovieDetailScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    
                     Expanded(
                         child: ListView(
                       children: [
@@ -107,40 +109,6 @@ class MovieDetailScreen extends StatelessWidget {
                         ),
                       ],
                     )),
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 12, bottom: 8),
-                    //   child: Text(
-                    //     'Casts',
-                    //     style: constants.TextStyles.text1,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   height: 130,
-                    //   child: ListView.builder(
-                    //     scrollDirection: Axis.horizontal,
-                    //     itemCount: singleMovie.casts!.length,
-                    //     itemBuilder: (context, i) => Column(
-                    //       children: [
-                    //         ClipRRect(
-                    //           borderRadius: BorderRadius.circular(10),
-                    //           child: Image.network(
-                    //             singleMovie.casts![i].imageUrl,
-                    //             height: 100,
-                    //             width: 85,
-                    //             fit: BoxFit.cover,
-                    //           ),
-                    //         ),
-                    //         const SizedBox(
-                    //           height: 6,
-                    //         ),
-                    //         Text(
-                    //           singleMovie.casts![i].name,
-                    //           style: constants.TextStyles.text2,
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
               ),
