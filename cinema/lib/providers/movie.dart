@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tmdb_api/tmdb_api.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Movie with ChangeNotifier {
   final String? id;
@@ -59,6 +61,7 @@ class Movies with ChangeNotifier {
   }
 
   Future<void> loadMovies() async {
+    const url = 'https://cinema-b1834-default-rtdb.firebaseio.com';
     const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
     const _readAccessToken =
         'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZWE2YWY3N2U0NDA2ZTUxZjlkMzY2OTJhZjU2MjBjNCIsInN1YiI6IjYyNGRmOWRmOTAyMDEyMDA5ZDY2NTFmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EKVQ649G0Y4a9ADoej11Sa0p8kTx6Ej6vaY0-G-PkUA';
@@ -113,7 +116,7 @@ class Movies with ChangeNotifier {
           title: movieData['original_name'] ?? 'Loading...',
           description: movieData['overview'] ?? 'Loading...',
           rate: movieData['vote_average'],
-          releaseDate: movieData['release_date'],
+          releaseDate: movieData['first_air_date'],
           imageUrl: movieData['poster_path'],
         ));
       }
@@ -123,7 +126,7 @@ class Movies with ChangeNotifier {
           title: movieData['original_name'] ?? 'Loading...',
           description: movieData['overview'] ?? 'Loading...',
           rate: movieData['vote_average'],
-          releaseDate: movieData['release_date'],
+          releaseDate: movieData['first_air_date'],
           imageUrl: movieData['poster_path'],
         ));
       }
@@ -133,7 +136,6 @@ class Movies with ChangeNotifier {
       _tvPopular = loadedTvPopular;
       _movies =
           _trendingMovies + _discoverMovies + _topRatedMovies + _tvPopular;
-      print(_movies.first.title);
       notifyListeners();
     } catch (error) {
       print(error);
