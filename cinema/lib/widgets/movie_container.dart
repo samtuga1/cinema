@@ -21,8 +21,7 @@ class MovieContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center, children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       GestureDetector(
         onTap: () {
           Navigator.of(context).pushNamed(MovieDetailScreen.routeName,
@@ -49,7 +48,8 @@ class MovieContainer extends StatelessWidget {
         ),
       ),
       Text(
-        '${rate ?? ''}/10',
+        //calculateRate().toString(),
+        '${((rate! / 10) * 5).round()}/5',
         style: constants.TextStyles.text2,
       ),
     ]);
