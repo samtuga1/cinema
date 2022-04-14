@@ -16,18 +16,22 @@ class MoviesListView extends StatefulWidget {
 }
 
 class _MoviesListViewState extends State<MoviesListView> {
-  
-  late bool _isLoading;
+  bool _isLoading = false;
   @override
   void didChangeDependencies() {
-    setState(() {
-      _isLoading = true;
-    });
-    Provider.of<Movies>(context, listen: false).loadMovies().then((_) {
+    if (Provider.of<Movies>(context, listen: false).trendingMovies.isEmpty) {
+      print('load');
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
-    });
+      Provider.of<Movies>(context, listen: false).loadMovies().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    } else {
+      return;
+    }
     super.didChangeDependencies();
   }
 
@@ -35,12 +39,12 @@ class _MoviesListViewState extends State<MoviesListView> {
   Widget build(BuildContext context) {
     final movieData = Provider.of<Movies>(context, listen: false);
     return SizedBox(
-            height: 195,
-            child: _isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Swiper(
+      height: 215,
+      child: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Swiper(
               itemBuilder: (ctx, i) {
                 if (widget.movieType == 'trending') {
                   return MovieContainer(
@@ -82,14 +86,14 @@ class _MoviesListViewState extends State<MoviesListView> {
                     rate: movieData.tvPopular[i].rate,
                     title: movieData.tvPopular[i].title,
                   );
-                }else {
-                  return const  Text('No movie Type specified');
+                } else {
+                  return const Text('No movie Type specified');
                 }
               },
               itemCount: movieData.trendingMovies.length,
               viewportFraction: 0.25,
               scale: 0.4,
             ),
-       );
+    );
   }
 }
