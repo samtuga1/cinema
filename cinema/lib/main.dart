@@ -1,3 +1,4 @@
+import 'package:cinema/providers/auth.dart';
 import 'package:cinema/providers/movie.dart';
 import 'package:cinema/screens/auth_screen.dart';
 import 'package:cinema/screens/favorite_movies.dart';
@@ -20,17 +21,21 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (ctx) => Movie()),
         ChangeNotifierProvider(create: (ctx) => Movies()),
+        ChangeNotifierProvider(create: (ctx) => Auth()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Cinema',
-        theme: ThemeData(brightness: Brightness.dark),
-        initialRoute: AuthScreen.routeName,
-        routes: {
-          HomeScreen.routName:(context) => HomeScreen(),
-          MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
-          FavoriteMovies.routName: (context) => const FavoriteMovies(),
-        },
+      child: Consumer<Auth>(
+        builder: (context, authData, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Cinema',
+          theme: ThemeData(brightness: Brightness.dark),
+          initialRoute: authData.isAuth ? HomeScreen.routName : AuthScreen.routeName,
+          routes: {
+            AuthScreen.routeName:(context) => AuthScreen(),
+            HomeScreen.routName:(context) => const HomeScreen(),
+            MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
+            FavoriteMovies.routName: (context) => const FavoriteMovies(),
+          },
+        ),
       ),
     );
   }
