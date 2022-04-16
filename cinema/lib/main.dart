@@ -1,4 +1,5 @@
 import 'package:cinema/providers/movie.dart';
+import 'package:cinema/screens/auth_screen.dart';
 import 'package:cinema/screens/favorite_movies.dart';
 import './screens/movie_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Cinema',
         theme: ThemeData(brightness: Brightness.dark),
-        initialRoute: HomeScreen.routName,
+        initialRoute: AuthScreen.routeName,
         routes: {
           HomeScreen.routName:(context) => HomeScreen(),
           MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
