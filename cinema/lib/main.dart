@@ -19,19 +19,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (ctx) => Movie()),
-        ChangeNotifierProvider(create: (ctx) => Movies()),
-        ChangeNotifierProvider(create: (ctx) => Auth()),
+        ChangeNotifierProvider(create: (ctx) => Movie(),),
+        ChangeNotifierProvider(create: (ctx) => Movies(),),
+        ChangeNotifierProvider(create: (ctx) => Auth(),),
       ],
       child: Consumer<Auth>(
         builder: (context, authData, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Cinema',
           theme: ThemeData(brightness: Brightness.dark),
-          initialRoute: authData.isAuth ? HomeScreen.routName : AuthScreen.routeName,
+          initialRoute:
+              authData.isAuth ? HomeScreen.routName : AuthScreen.routeName,
           routes: {
-            AuthScreen.routeName:(context) => AuthScreen(),
-            HomeScreen.routName:(context) => const HomeScreen(),
+            AuthScreen.routeName: (context) => AuthScreen(),
+            HomeScreen.routName: (context) => const HomeScreen(),
             MovieDetailScreen.routeName: (context) => const MovieDetailScreen(),
             FavoriteMovies.routName: (context) => const FavoriteMovies(),
           },
