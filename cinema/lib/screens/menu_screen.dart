@@ -2,6 +2,8 @@ import 'package:cinema/screens/favorite_movies.dart';
 import 'package:cinema/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart' as constants;
+import 'package:provider/provider.dart';
+import '../providers/auth.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -36,7 +38,30 @@ class MenuScreen extends StatelessWidget {
             ),
             MenuScreenItem(
               name: 'Logout',
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: const Text('Alert!'),
+                    content: const Text('Dou you really want to logout?'),
+                    actions: [
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                        },
+                        child: const Text('NO'),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                          Provider.of<Auth>(context, listen: false).logout();
+                        },
+                        child: const Text('YES'),
+                      ),
+                    ],
+                  ),
+                );
+              },
               icon: const Icon(Icons.logout),
             )
           ],
