@@ -23,8 +23,8 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
-                  Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
+                  const Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
+                  const Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -42,9 +42,9 @@ class AuthScreen extends StatelessWidget {
                 children: <Widget>[
                   Flexible(
                     child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
+                      margin: const EdgeInsets.only(bottom: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 94.0),
                       transform: Matrix4.rotationZ(-8 * pi / 180)
                         ..translate(-10.0),
                       // ..translate(-10.0),
@@ -97,8 +97,8 @@ class AuthCard extends StatefulWidget {
 }
 
 class _AuthCardState extends State<AuthCard> {
-void showErrorDialog(String message) {
-  showDialog(
+  void showErrorDialog(String message) {
+    showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Error occured!'),
@@ -129,24 +129,21 @@ void showErrorDialog(String message) {
       // Invalid!
       return;
     }
+    _formKey.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
     try {
-      _formKey.currentState!.save();
-      setState(() {
-        _isLoading = true;
-      });
       if (_authMode == AuthMode.Login) {
         // Log user in
-        await Provider.of<Auth>(context, listen: false).authenticate(
-            _authData['email']!, _authData['password']!, 'signInWithPassword');
+        await Provider.of<Auth>(context, listen: false)
+            .login(_authData['email']!, _authData['password']!);
       } else {
         // Sign user up
-        await Provider.of<Auth>(context, listen: false).authenticate(
-            _authData['email']!, _authData['password']!, 'signUp');
+        await Provider.of<Auth>(context, listen: false)
+            .signUp(_authData['email']!, _authData['password']!);
       }
-      setState(() {
-        _isLoading = false;
-      });
-    } on HttpException catch(error) {
+    } on HttpException catch (error) {
       String errorMessage = 'Failed to authenticate';
       if (error.toString().contains('EMAIL_EXISTS')) {
         errorMessage = 'Email is already in use';
@@ -160,6 +157,9 @@ void showErrorDialog(String message) {
       String errorMessage = 'Failed to authenticate. Please try later';
       showErrorDialog(errorMessage);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void _switchAuthMode() {
@@ -208,7 +208,7 @@ void showErrorDialog(String message) {
                   },
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
