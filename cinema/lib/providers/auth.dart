@@ -40,6 +40,7 @@ class Auth with ChangeNotifier {
       );
       final responseData = json.decode(response.body);
       if (responseData['error'] != null) {
+        print(responseData['error']['message']);
         throw HttpException(responseData['error']['message']);
       }
       _token = responseData['idToken'];
@@ -53,7 +54,14 @@ class Auth with ChangeNotifier {
       );
       notifyListeners();
     } catch (error) {
-      print(error);
+      throw error;
     }
+  }
+
+  Future<void> login(String email, String password) async {
+    return authenticate(email, password, 'signInWithPassword');
+  }
+  Future<void> signUp(String email, String password) async {
+    return authenticate(email, password, 'signUp');
   }
 }
