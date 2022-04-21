@@ -21,8 +21,41 @@ class Movie with ChangeNotifier {
     this.releaseDate,
     this.isFavorite = false,
   });
-  void toggleFavorite(Movie movie) {
+  Future<void> toggleFavorite(Movie movie) async {
     movie.isFavorite = !movie.isFavorite;
+    const url =
+        'https://cinema-a0068-default-rtdb.firebaseio.com/favoriteMovies.json';
+
+    if (movie.isFavorite) {
+      try {
+        final response = await http.post(
+          Uri.parse(url),
+          body: json.encode(
+            {
+              'id': movie.id,
+              'title': movie.title,
+              'description': movie.description,
+              'isFavorite': movie.isFavorite,
+              'imageUrl': movie.imageUrl,
+              'rate': ((movie.rate ?? 0 / 10) * 5).round(),
+              'releaseDate': movie.releaseDate,
+            },
+          ),
+        );
+        if (response.statusCode >= 400) {
+          return;
+        }
+        final extractedData = json.decode(response.body);
+      } catch (error) {
+        rethrow;
+      }
+    } else {
+      try {
+        await http.delete(Uri.parse(url));
+      } catch (error) {
+        rethrow;
+      }
+    }
     notifyListeners();
   }
 
@@ -31,6 +64,7 @@ class Movie with ChangeNotifier {
 
 class Movies with ChangeNotifier {
   List<Movie> _movies = [];
+  List<Movie> _favoriteMovies = [];
   List<Movie> _trendingMovies = [];
   List<Movie> _discoverMovies = [];
   List<Movie> _topRatedMovies = [];
@@ -38,6 +72,10 @@ class Movies with ChangeNotifier {
 
   List<Movie> get trendingMovies {
     return _trendingMovies;
+  }
+
+  List<Movie> get favMovies {
+    return _favoriteMovies;
   }
 
   List<Movie> get discoverMovies {
@@ -56,8 +94,24 @@ class Movies with ChangeNotifier {
     return _movies.firstWhere((movie) => movie.id == id);
   }
 
-  List<Movie> showFavMovies() {
-    return _movies.where((movie) => movie.isFavorite == true).toList();
+  Future<void> getFavMovies() async {
+    const url =
+        'https://cinema-a0068-default-rtdb.firebaseio.com/favoriteMovies.json';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode >= 400) {
+      return;
+    }
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    extractedData.forEach((movieId, movieData) {
+      _favoriteMovies.add(Movie(
+          id: movieData['id'],
+          title: movieData['title'],
+          description: movieData['description'],
+          isFavorite: movieData['isFavorite'],
+          imageUrl: movieData['imageUrl'],
+          rate: movieData['rate'],
+          releaseDate: movieData['releaseDate']));
+    });
   }
 
   Future<void> loadMovies() async {
