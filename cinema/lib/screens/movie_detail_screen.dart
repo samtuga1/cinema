@@ -44,9 +44,12 @@ class MovieDetailScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: IconButton(
-                onPressed: () {
-                  Provider.of<Movie>(context, listen: false)
-                      .toggleFavorite(singleMovie);
+                onPressed: () async {
+                  await Provider.of<Movie>(context, listen: false)
+                      .toggleFavorite(singleMovie)
+                      .catchError((error) {
+                    print(error);
+                  });
                 },
                 icon: Icon(
                   Icons.favorite,
