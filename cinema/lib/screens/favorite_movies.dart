@@ -17,34 +17,45 @@ class FavoriteMovies extends StatelessWidget {
       style: DrawerStyle.Style1,
       menuScreen: const MenuScreen(),
       mainScreen: Scaffold(
-        appBar: AppBar(
-          leading: const MenuWidget(),
-          title: Text('Favorites', style: constants.TextStyles.textstyle),
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Consumer<Movies>(
-            builder: (context, movies, child) => GridView.builder(
-              itemCount: movies.showFavMovies().length,
-              itemBuilder: ((context, i) => MovieContainer(
-                    description: movies.showFavMovies()[i].description,
-                    releaseDate: movies.showFavMovies()[i].releaseDate,
-                    id: movies.showFavMovies()[i].id,
-                    imageUrl:
-                        'https://image.tmdb.org/t/p/w500${movies.showFavMovies()[i].imageUrl}',
-                    rate: movies.showFavMovies()[i].rate,
-                    title: movies.showFavMovies()[i].title,
-                  )),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 2 / 3,
-                mainAxisSpacing: 0.0,
-              ),
-            ),
+          appBar: AppBar(
+            leading: const MenuWidget(),
+            title: Text('Favorites', style: constants.TextStyles.textstyle),
+            centerTitle: true,
           ),
-        ),
-      ),
+          body: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: FutureBuilder(
+                future: Provider.of<Movies>(context).getFavMovies(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text('error');
+                  } else {
+                    final favMovies = Provider.of<Movies>(context).favMovies;
+                    return GridView.builder(
+                      itemCount: favMovies.length,
+                      itemBuilder: ((context, i) => MovieContainer(
+                            description: favMovies[i].description,
+                            releaseDate: favMovies[i].releaseDate,
+                            id: favMovies[i].id,
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w500${favMovies[i].imageUrl}',
+                            rate: favMovies[i].rate,
+                            title: favMovies[i].title,
+                          )),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 2 / 3,
+                        mainAxisSpacing: 0.0,
+                      ),
+                    );
+                  }
+                }),
+          )),
     );
   }
 }
