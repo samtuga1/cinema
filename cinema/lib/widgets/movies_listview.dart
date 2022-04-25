@@ -28,6 +28,21 @@ class _MoviesListViewState extends State<MoviesListView> {
         setState(() {
           _isLoading = false;
         });
+      }).catchError((error) {
+        showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+                  title: const Text('Error'),
+                  content: const Text('An error occured try again later'),
+                  actions: [
+                    FlatButton(
+                      child: const Text('Okay'),
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                    )
+                  ],
+                ));
       });
     } else {
       return;
