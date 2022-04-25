@@ -6,13 +6,13 @@ import '../constants.dart' as constants;
 class MovieDetailScreen extends StatelessWidget {
   static const routeName = '/movie_detail_screen';
 
-  const MovieDetailScreen({Key? key}) : super(key: key);
+  const MovieDetailScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     final movieData =
-        ModalRoute.of(context)?.settings.arguments as List<dynamic>;
+        ModalRoute.of(context).settings.arguments as List<dynamic>;
     final singleMovie = Provider.of<Movies>(context, listen: false)
         .findSingleById(movieData[5]);
     return Scaffold(
@@ -44,8 +44,8 @@ class MovieDetailScreen extends StatelessWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: IconButton(
-                onPressed: () async {
-                  await Provider.of<Movie>(context, listen: false)
+                onPressed: () {
+                  Provider.of<Movie>(context, listen: false)
                       .toggleFavorite(singleMovie)
                       .catchError((error) {
                     print(error);
