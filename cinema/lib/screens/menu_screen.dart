@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({Key? key}) : super(key: key);
+  const MenuScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +76,10 @@ class MenuScreenItem extends StatelessWidget {
   final Function() onPressed;
   final Icon icon;
   const MenuScreenItem({
-    Key? key,
-    required this.name,
-    required this.onPressed,
-    required this.icon,
+    Key key,
+    this.name,
+    this.onPressed,
+    this.icon,
   }) : super(key: key);
 
   @override
