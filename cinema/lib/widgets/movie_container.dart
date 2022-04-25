@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import '../constants.dart' as constants;
 
 class MovieContainer extends StatelessWidget {
-  final String? description;
-  final String? releaseDate;
-  final String? id;
-  final String? imageUrl;
-  final double? rate;
-  final String? title;
+  final String description;
+  final String releaseDate;
+  final String id;
+  final String imageUrl;
+  final double rate;
+  final String title;
   const MovieContainer({
-    Key? key,
+    Key key,
     this.releaseDate,
     this.description,
-    required this.id,
-    required this.imageUrl,
-    required this.rate,
-    required this.title,
+    this.id,
+    this.imageUrl,
+    this.rate,
+    this.title,
   }) : super(key: key);
 
   @override
@@ -30,7 +30,7 @@ class MovieContainer extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Image.network(
-            imageUrl!,
+            imageUrl,
             fit: BoxFit.cover,
             height: 130,
             width: 117,
@@ -49,7 +49,7 @@ class MovieContainer extends StatelessWidget {
       ),
       Text(
         //calculateRate().toString(),
-        '${((rate! / 10) * 5).round()}/5',
+        '${((rate / 10) * 5).round()}/5',
         style: constants.TextStyles.text2,
       ),
     ]);
