@@ -9,7 +9,7 @@ import '../constants.dart' as constants;
 
 class FavoriteMovies extends StatelessWidget {
   static const routName = '/fav_screen';
-  const FavoriteMovies({Key? key}) : super(key: key);
+  const FavoriteMovies({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,8 @@ class FavoriteMovies extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: FutureBuilder(
-                future: Provider.of<Movies>(context).getFavMovies(),
+                future:
+                    Provider.of<Movies>(context, listen: false).getFavMovies(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -34,23 +35,24 @@ class FavoriteMovies extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return const Text('error');
                   } else {
-                    final favMovies = Provider.of<Movies>(context).favMovies;
-                    return GridView.builder(
-                      itemCount: favMovies.length,
-                      itemBuilder: ((context, i) => MovieContainer(
-                            description: favMovies[i].description,
-                            releaseDate: favMovies[i].releaseDate,
-                            id: favMovies[i].id,
-                            imageUrl:
-                                'https://image.tmdb.org/t/p/w500${favMovies[i].imageUrl}',
-                            rate: favMovies[i].rate,
-                            title: favMovies[i].title,
-                          )),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 2 / 3,
-                        mainAxisSpacing: 0.0,
+                    return Consumer<Movies>(
+                      builder: (context, movieData, _) => GridView.builder(
+                        itemCount: movieData.favMovies.length,
+                        itemBuilder: ((context, i) => MovieContainer(
+                              description: movieData.favMovies[i].description,
+                              releaseDate: movieData.favMovies[i].releaseDate,
+                              id: movieData.favMovies[i].id,
+                              imageUrl:
+                                  'https://image.tmdb.org/t/p/w500${movieData.favMovies[i].imageUrl}',
+                              rate: movieData.favMovies[i].rate,
+                              title: movieData.favMovies[i].title,
+                            )),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 2 / 3,
+                          mainAxisSpacing: 0.0,
+                        ),
                       ),
                     );
                   }
