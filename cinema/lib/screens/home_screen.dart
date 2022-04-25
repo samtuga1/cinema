@@ -8,7 +8,7 @@ import '../widgets/movies_listview.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routName = '/home_screen';
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(
@@ -29,13 +29,21 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             children: [
               movieType('Top Trends'),
-              const MoviesListView(movieType: 'trending',),
+              const MoviesListView(
+                movieType: 'trending',
+              ),
               movieType('Discover'),
-              const MoviesListView(movieType: 'discover',),
+              const MoviesListView(
+                movieType: 'discover',
+              ),
               movieType('Tv top rated'),
-              const MoviesListView(movieType: 'top rated',),
+              const MoviesListView(
+                movieType: 'top rated',
+              ),
               movieType('Popular Tv shows'),
-              const MoviesListView(movieType: 'tv popular',)
+              const MoviesListView(
+                movieType: 'tv popular',
+              )
             ],
           ),
         )),
