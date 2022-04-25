@@ -38,7 +38,7 @@ class Movie with ChangeNotifier {
               'description': movie.description,
               'isFavorite': movie.isFavorite,
               'imageUrl': movie.imageUrl,
-              'rate': ((movie.rate ?? 0 / 10) * 5).round(),
+              'rate': movie.rate,
               'releaseDate': movie.releaseDate,
             },
           ),
@@ -101,15 +101,12 @@ class Movies with ChangeNotifier {
         Uri.parse(url),
       );
       if (response.statusCode >= 400) {
-        print(response.statusCode);
         return;
       }
       if (response.body == null) {
-        print(response.body);
         return;
       }
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      print(extractedData);
       List<Movie> loadedMovies = [];
       extractedData.forEach((movieId, movieData) {
         loadedMovies.add(Movie(
@@ -118,11 +115,10 @@ class Movies with ChangeNotifier {
             description: movieData['description'],
             isFavorite: movieData['isFavorite'],
             imageUrl: movieData['imageUrl'],
-            rate: movieData['rate'],
+            rate: ((movieData['rate'] / 10) * 5).round(),
             releaseDate: movieData['releaseDate']));
       });
       _favoriteMovies = loadedMovies;
-      print(_favoriteMovies);
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -130,7 +126,6 @@ class Movies with ChangeNotifier {
   }
 
   Future<void> loadMovies() async {
-    const url = 'https://cinema-b1834-default-rtdb.firebaseio.com';
     const _apiKey = 'fea6af77e4406e51f9d36692af5620c4';
     const _readAccessToken =
         'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZWE2YWY3N2U0NDA2ZTUxZjlkMzY2OTJhZjU2MjBjNCIsInN1YiI6IjYyNGRmOWRmOTAyMDEyMDA5ZDY2NTFmZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EKVQ649G0Y4a9ADoej11Sa0p8kTx6Ej6vaY0-G-PkUA';
@@ -207,7 +202,6 @@ class Movies with ChangeNotifier {
           _trendingMovies + _discoverMovies + _topRatedMovies + _tvPopular;
       notifyListeners();
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
