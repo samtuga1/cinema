@@ -89,7 +89,7 @@ class AuthScreen extends StatelessWidget {
 
 class AuthCard extends StatefulWidget {
   const AuthCard({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
@@ -125,11 +125,11 @@ class _AuthCardState extends State<AuthCard> {
   final _passwordController = TextEditingController();
 
   void _submit() async {
-    if (!_formKey.currentState!.validate()) {
+    if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
     }
-    _formKey.currentState!.save();
+    _formKey.currentState.save();
     setState(() {
       _isLoading = true;
     });
@@ -137,11 +137,11 @@ class _AuthCardState extends State<AuthCard> {
       if (_authMode == AuthMode.Login) {
         // Log user in
         await Provider.of<Auth>(context, listen: false)
-            .login(_authData['email']!, _authData['password']!);
+            .login(_authData['email'], _authData['password']);
       } else {
         // Sign user up
         await Provider.of<Auth>(context, listen: false)
-            .signUp(_authData['email']!, _authData['password']!);
+            .signUp(_authData['email'], _authData['password']);
       }
     } on HttpException catch (error) {
       String errorMessage = 'Failed to authenticate';
@@ -197,14 +197,14 @@ class _AuthCardState extends State<AuthCard> {
                   decoration: const InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value!.isEmpty || !value.contains('@')) {
+                    if (value.isEmpty || !value.contains('@')) {
                       return 'Invalid email!';
                     }
                     return null;
                     return null;
                   },
                   onSaved: (value) {
-                    _authData['email'] = value!;
+                    _authData['email'] = value;
                   },
                 ),
                 TextFormField(
@@ -212,12 +212,12 @@ class _AuthCardState extends State<AuthCard> {
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value!.isEmpty || value.length < 5) {
+                    if (value.isEmpty || value.length < 5) {
                       return 'Password is too short!';
                     }
                   },
                   onSaved: (value) {
-                    _authData['password'] = value!;
+                    _authData['password'] = value;
                   },
                 ),
                 if (_authMode == AuthMode.Signup)
@@ -250,7 +250,7 @@ class _AuthCardState extends State<AuthCard> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 8.0),
                     color: Theme.of(context).primaryColor,
-                    textColor: Theme.of(context).primaryTextTheme.button!.color,
+                    textColor: Theme.of(context).primaryTextTheme.button.color,
                   ),
                 FlatButton(
                   child: Text(
@@ -259,7 +259,7 @@ class _AuthCardState extends State<AuthCard> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  textColor: Theme.of(context).textTheme.bodyText1!.color,
+                  textColor: Theme.of(context).textTheme.bodyText1.color,
                 ),
               ],
             ),
