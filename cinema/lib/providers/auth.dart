@@ -5,18 +5,18 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Auth with ChangeNotifier {
-  String? _token;
-  DateTime? _expiryDate;
-  String? _userId;
+  String _token;
+  DateTime _expiryDate;
+  String _userId;
 
   bool get isAuth {
     return token != null;
   }
 
-  String? get token {
+  String get token {
     if (_token != null &&
         _expiryDate != null &&
-        _expiryDate!.isAfter(DateTime.now())) {
+        _expiryDate.isAfter(DateTime.now())) {
       return _token;
     }
     return null;
@@ -54,7 +54,7 @@ class Auth with ChangeNotifier {
       );
       notifyListeners();
     } catch (error) {
-      throw error;
+      rethrow;
     }
   }
 
@@ -67,13 +67,12 @@ class Auth with ChangeNotifier {
   }
 
   void logout() {
-    if (!_expiryDate!.isAfter(DateTime.now())) {
+    if (!_expiryDate.isAfter(DateTime.now())) {
       return;
     }
     _token = null;
     _userId = null;
     _expiryDate = null;
-    print(isAuth);
     notifyListeners();
   }
 }
