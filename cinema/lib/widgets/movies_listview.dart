@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import '../widgets/movie_container.dart';
 
 class MoviesListView extends StatefulWidget {
-  final String? movieType;
+  final String movieType;
   const MoviesListView({
-    Key? key,
+    Key key,
     this.movieType,
   }) : super(key: key);
 
