@@ -32,31 +32,39 @@ class MenuScreen extends StatelessWidget {
               icon: const Icon(Icons.favorite),
             ),
             MenuScreenItem(
-              name: 'Help',
-              onPressed: () {},
-              icon: const Icon(Icons.help),
-            ),
-            MenuScreenItem(
               name: 'Logout',
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (ctx) => AlertDialog(
-                    title: const Text('Alert!'),
-                    content: const Text('Dou you really want to logout?'),
+                    title: Text(
+                      'Alert!',
+                      style: constants.TextStyles.text1.copyWith(
+                          fontSize: 18, color: Theme.of(context).errorColor),
+                    ),
+                    content: Text(
+                      'Dou you really want to logout?',
+                      style: constants.TextStyles.text2,
+                    ),
                     actions: [
                       FlatButton(
                         onPressed: () {
                           Navigator.of(ctx).pop();
                         },
-                        child: const Text('NO'),
+                        child: Text(
+                          'NO',
+                          style: constants.TextStyles.text2,
+                        ),
                       ),
                       FlatButton(
                         onPressed: () {
                           Navigator.of(ctx).pop();
                           Provider.of<Auth>(context, listen: false).logout();
                         },
-                        child: const Text('YES'),
+                        child: Text(
+                          'YES',
+                          style: constants.TextStyles.text2,
+                        ),
                       ),
                     ],
                   ),
